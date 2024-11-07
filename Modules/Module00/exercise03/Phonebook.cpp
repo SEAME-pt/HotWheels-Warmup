@@ -1,13 +1,12 @@
-#include "Contact.hpp"
+
 #include "Phonebook.hpp"
-#include <cstddef>
 #include <iostream>
 
 void Phonebook::addContact(const std::string &name,
                            const std::string &phoneNumber,
                            const std::string &nickname) {
   for (size_t i = 0; i < contacts.size(); ++i) {
-    const auto &contact = contacts[i];
+    const Contact &contact = contacts[i];
     if (contact.getPhoneNumber() == phoneNumber) {
       std::cout << "Phone number must be unique. Contact not added.\n";
       return;
