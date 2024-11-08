@@ -1,3 +1,0 @@
-/Users/fle-biha/Desktop/SEAME/SEAME-WarmUp-Team01/Modules/Module02/ex01/build/CMakeFiles/main.dir
-/Users/fle-biha/Desktop/SEAME/SEAME-WarmUp-Team01/Modules/Module02/ex01/build/CMakeFiles/edit_cache.dir
-/Users/fle-biha/Desktop/SEAME/SEAME-WarmUp-Team01/Modules/Module02/ex01/build/CMakeFiles/rebuild_cache.dir
