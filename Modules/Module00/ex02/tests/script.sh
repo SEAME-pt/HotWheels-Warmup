@@ -1,11 +1,14 @@
 #!/bin/bash
 
-# get the path to the executable
-convert_path=$(which program)
+# Find the program executable
+PROGRAM_PATH=$(find . -name 'program' -type f -executable | head -n 1)
 
-chmod +x "$convert_path"
+if [ -z "$PROGRAM_PATH" ]; then
+    echo "Error: Program executable not found."
+    exit 1
+fi
 
-echo "Convert path: $convert_path"
+echo "Found program executable at: $PROGRAM_PATH"
 
 # test function
 test() {
