@@ -17,7 +17,7 @@ test() {
     local expected_output="$3"
 
     # run the executable and get the output
-    output=$("$convert_path" "$command" "$input_string")
+    output=$("$PROGRAM_PATH" "$command" "$input_string")
 
     # compare the output with the input string
     if [[ "$output" == "$expected_output" ]]; then
