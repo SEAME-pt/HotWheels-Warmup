@@ -1,39 +1,39 @@
 #!/bin/bash
 
-# Define the path to the `convert` executable
-convert_path="ex02/program"
+# get the path to the executable
+convert_path=$(which program)
 
-# Function to run the test
-run_test() {
+chmod +x "$convert_path"
+
+echo "Convert path: $convert_path"
+
+# test function
+test() {
     local command="$1"
     local input_string="$2"
     local expected_output="$3"
 
-    # Run the `convert` program and capture its output
+    # run the executable and get the output
     output=$("$convert_path" "$command" "$input_string")
 
-    # Compare the output with the expected output
+    # compare the output with the input string
     if [[ "$output" == "$expected_output" ]]; then
         echo "Test passed for command '$command' with input '$input_string'."
     else
         echo "Test failed for command '$command' with input '$input_string'."
         echo "Expected: $expected_output"
-        echo "Got: $output"
+        echo "Output: $output"
     fi
 }
 
-# Main function to define test cases and run them
+# main function with some strings to compare
 main() {
-    # Uppercase tests
-    run_test "up" "I’m the one!" "I’M THE ONE!"
-    run_test "up" "Hello World" "HELLO WORLD"
-    run_test "up" "Testing 123" "TESTING 123"
+    test "up" "Hello world" "HELLO WORLD"
+    test "up" "oLa mEus amiGOS" "OLA MEUS AMIGOS"
 
-    # Lowercase tests
-    run_test "down" "I’m A SMall man" "i’m a small man"
-    run_test "down" "HELLO WORLD" "hello world"
-    run_test "down" "Testing 123" "testing 123"
+    test "up" "HELLo woRLD" "hello world"
+    test "up" "CODinG iS VERy nicE" "coding is very nice"
 }
 
-# Execute the main function
+# execute the main function
 main
