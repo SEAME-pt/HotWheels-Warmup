@@ -1,39 +1,42 @@
 #!/bin/bash
 
-# Define the path to the `convert` executable
-convert_path="ex02/program"
+# Find the program executable
+PROGRAM_PATH=$(find . -name 'program' -type f -executable | head -n 1)
 
-# Function to run the test
-run_test() {
+if [ -z "$PROGRAM_PATH" ]; then
+    echo "Error: Program executable not found."
+    exit 1
+fi
+
+echo "Found program executable at: $PROGRAM_PATH"
+
+# test function
+test() {
     local command="$1"
     local input_string="$2"
     local expected_output="$3"
 
-    # Run the `convert` program and capture its output
-    output=$("$convert_path" "$command" "$input_string")
+    # run the executable and get the output
+    output=$("$PROGRAM_PATH" "$command" "$input_string")
 
-    # Compare the output with the expected output
+    # compare the output with the input string
     if [[ "$output" == "$expected_output" ]]; then
         echo "Test passed for command '$command' with input '$input_string'."
     else
         echo "Test failed for command '$command' with input '$input_string'."
         echo "Expected: $expected_output"
-        echo "Got: $output"
+        echo "Output: $output"
     fi
 }
 
-# Main function to define test cases and run them
+# main function with some strings to compare
 main() {
-    # Uppercase tests
-    run_test "up" "I’m the one!" "I’M THE ONE!"
-    run_test "up" "Hello World" "HELLO WORLD"
-    run_test "up" "Testing 123" "TESTING 123"
+    test "up" "Hello world" "HELLO WORLD"
+    test "up" "oLa mEus amiGOS" "OLA MEUS AMIGOS"
 
-    # Lowercase tests
-    run_test "down" "I’m A SMall man" "i’m a small man"
-    run_test "down" "HELLO WORLD" "hello world"
-    run_test "down" "Testing 123" "testing 123"
+    test "down" "HELLo woRLD" "hello world"
+    test "down" "CODinG iS VERy nicE" "coding is very nice"
 }
 
-# Execute the main function
+# execute the main function
 main
