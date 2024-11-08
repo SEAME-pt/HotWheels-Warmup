@@ -1,19 +1,20 @@
+#pragma once
 #include <iostream>
 
 class Car {
-private:
-    std::string make;
-    std::string model;
-    std::string year;
+    protected:
+        std::string make;
+        std::string model;
+        int year;
 
-public:
-    /* Orthodox Canonical Form */
-    Car();
-    ~Car();
-    Car(const Car &originalCar);
-    Car &operator=(const Car &originalCar);
-    /* ----------------------- */
-    Car(std::string &make, std::string &model, std::string &year);
+    public:
+        /* Orthodox Canonical Form */
+        Car();
+        ~Car();
+        Car(const Car &originalCar);
+        Car &operator=(const Car &originalCar);
+        /* ----------------------- */
+        Car(const std::string &make, const std::string &model, int year);
 
-    void drive();
+        virtual void drive() const;
 };

@@ -1,5 +1,6 @@
 #include <iostream>
 #include "../includes/Car.hpp"
+#include "../includes/SportsCar.hpp"
 
 int main() {
     // Test default constructor
@@ -10,7 +11,7 @@ int main() {
     // Test parameterized constructor
     std::string make = "Toyota";
     std::string model = "Corolla";
-    std::string year = "2022";
+    int year = 2022;
     Car car2(make, model, year);
     std::cout << "Testing parameterized constructor:" << std::endl;
     car2.drive();
@@ -25,5 +26,10 @@ int main() {
     std::cout << "Testing assignment operator (should match car3):" << std::endl;
     car1.drive();
 
+    // Test inheritance
+    std::cout << "[Testing inheritance car]" << std::endl;
+    SportsCar sport1("Ford Mustang", "Shelby GT500", 1967, 206);
+    sport1.drive();
+    
     return 0;
 }
