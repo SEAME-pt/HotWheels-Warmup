@@ -34,8 +34,8 @@ main() {
     test "up" "Hello world" "HELLO WORLD"
     test "up" "oLa mEus amiGOS" "OLA MEUS AMIGOS"
 
-    test "up" "HELLo woRLD" "hello world"
-    test "up" "CODinG iS VERy nicE" "coding is very nice"
+    test "down" "HELLo woRLD" "hello world"
+    test "down" "CODinG iS VERy nicE" "coding is very nice"
 }
 
 # execute the main function
