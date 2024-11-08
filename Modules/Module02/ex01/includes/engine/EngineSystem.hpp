@@ -13,7 +13,7 @@ private:
   std::vector<std::shared_ptr<Piston>> pistons;
   std::shared_ptr<Crankshaft> crankshaft;
   bool isRunning;
-  int speed;
+  int power;
 
 public:
   EngineSystem();
@@ -24,12 +24,16 @@ public:
   EngineSystem &operator=(const EngineSystem &other);
   ~EngineSystem();
 
-  std::string getInfo() const;
+  bool getIsRunning() const;
+  int getPower() const;
 
   void ignite();
   void accelerate();
   void decelerate();
   void shutdown();
+
+  std::string getInfo() const;
+  void operate();
 };
 
 #endif

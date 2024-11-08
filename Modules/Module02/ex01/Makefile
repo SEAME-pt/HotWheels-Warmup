@@ -20,5 +20,8 @@ run: all
 clean:
 	@rm -rf $(BUILD_DIR)
 
+# Rebuild the project from scratch
+re: clean all
+
 # Phony targets
 .PHONY: all run clean
