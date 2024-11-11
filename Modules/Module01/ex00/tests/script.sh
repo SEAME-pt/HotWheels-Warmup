@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Find the program executable
-PROGRAM_PATH=$(find . -name 'program' -type f -executable | head -n 1)
+PROGRAM_PATH=$(find . -name 'main' -type f -executable | head -n 1)
 
 if [ -z "$PROGRAM_PATH" ]; then
     echo "Error: Program executable not found."

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Find the program executable
-PROGRAM_PATH=$(find . -name 'program' -type f -executable | head -n 1)
+PROGRAM_PATH=$(find . -name 'main' -type f -executable | head -n 1)
 
 if [ -z "$PROGRAM_PATH" ]; then
     echo -e "Error: Program executable not found."
@@ -11,15 +11,16 @@ fi
 # Create expected output file
 cat > expected_output.txt << EOF
 Testing default constructor:
-Vroom! The Unknown Unknown is driving.
+Driving a Renault Megane 2008
 Testing parameterized constructor:
-Vroom! The 2022 Toyota Corolla is driving.
+Driving a Toyota Corolla 2022
 Testing copy constructor (should match car2):
-Vroom! The 2022 Toyota Corolla is driving.
+Driving a Toyota Corolla 2022
 Testing assignment operator (should match car3):
-Vroom! The 2022 Toyota Corolla is driving.
+Driving a Toyota Corolla 2022
 [Testing inheritance car]
-VROOM! The 1967 Ford Mustang Shelby GT500 is racing with 206 horsepower!
+Driving a Ford Mustang Shelby GT500 1967
+Top speed: 206km/h !!
 EOF
 
 # Run the program and save output
