@@ -23,9 +23,9 @@ jobs:
     strategy:
       matrix:
         folder:
-          - 'Modules/Module01/ex00'
-          - 'Modules/Module01/ex01'
-          - 'Modules/Module01/ex02'
+          - 'Module01/ex00'
+          - 'Module01/ex01'
+          - 'Module01/ex02'
 
     steps:
     - uses: actions/checkout@v2
@@ -37,6 +37,7 @@ jobs:
 
     - name: Check Makefile exists
       run: |
+        cd ${{ matrix.folder }}
         if [ ! -f "Makefile" ]; then
           echo "::error::Makefile not found in ${{ matrix.folder }}"
           exit 1
