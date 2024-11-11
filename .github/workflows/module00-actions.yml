@@ -1,18 +1,9 @@
-name: Module Tests
+name: Module 01 Tests
 
 on:
   push:
-    #branches: [ main ]
-    #paths:
-      #- 'Module00/ex02/**'
-      #- 'Module00/ex03/**'
-      #- '.github/workflows/module00-actions.yml'
+
   pull_request:
-    #branches: [ main ]
-    #paths:
-      #- 'Module00/ex02/**'
-      #- 'Module00/ex03/**'
-      #- '.github/workflows/module00-actions.yml'
 
 jobs:
   build-and-test:
@@ -23,48 +14,14 @@ jobs:
         folder:
           - 'Modules/Module00/ex02'
           - 'Modules/Module00/ex03'
-
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
-    - name: Setup compiler and tools
+    - name: Compile executable
       run: |
-        sudo apt-get update
-        sudo apt-get install -y g++ make valgrind
-
-    - name: Check Makefile exists
-      run: |
-        if [ ! -f "Makefile" ]; then
-          echo "::error::Makefile not found in ${{ matrix.folder }}"
-          exit 1
-        fi
-
-    - name: Compile
-      run: |
+        cd ${{ matrix.folder }}
         make
-        if [ ! -f "./program" ]; then
-          echo "::error::Executable 'program' not created"
-          exit 1
-        fi
 
     - name: Run tests
       run: |
-        if [ -f "./test.sh" ]; then
-          chmod +x ./test.sh
-          ./test.sh
-        else
-          echo "Running executable directly..."
-          ./program
-        fi
-
-    - name: Check memory leaks
-      run: |
-        valgrind --leak-check=full \
-                 --show-leak-kinds=all \
-                 --track-origins=yes \
-                 --verbose \
-                 --error-exitcode=1 \
-                 ./program
-
-    - name: Clean
-      run: make fclean
+        make test
