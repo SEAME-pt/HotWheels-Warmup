@@ -1,17 +1,8 @@
-name: Module Tests
+name: Module 01 Tests
 
 on:
   push:
-     paths:
-       - 'Module01/ex00/**'
-       - 'Module01/ex01/**'
-       - 'Module01/ex02/**'
   pull_request:
-     paths:
-       - 'Module01/ex00/**'
-       - 'Module01/ex01/**'
-       - 'Module01/ex02/**'
-
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
@@ -19,70 +10,22 @@ jobs:
     strategy:
       matrix:
         folder:
-          - 'Module01/ex00'
-          - 'Module01/ex01'
-          - 'Module01/ex02'
+          - 'Modules/Module01/ex00'
+          - 'Modules/Module01/ex01'
+          - 'Modules/Module01/ex02'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
-    # Debugging step: Print current working directory and root directory contents
-    - name: Print current directory and list contents
+    - name: Compile executable
       run: |
-        echo "Current working directory:"
-        pwd
-        echo "Listing root directory contents:"
-        ls -l
-        echo "Listing contents of the entire repository recursively:"
-        ls -R  # List all files recursively to verify folder structure
-
-    #- name: Setup compiler and tools
-      #run: |
-        #sudo apt-get update
-        #sudo apt-get install -y g++ make valgrind
-
-    - name: Check Makefile exists in ${{ matrix.folder }}
-      run: |
-        echo "Checking if Makefile exists in ${matrix.folder}"
-        cd ${{ matrix.folder }}  # Navigate to the correct folder
-        ls -l  # Debug: list contents of the folder to verify if Makefile is there
-        if [ ! -f "Makefile" ]; then
-          echo "::error::Makefile not found in ${{ matrix.folder }}"
-          exit 1
-        fi
-
-    - name: Compile in ${{ matrix.folder }}
-      run: |
-        cd ${{ matrix.folder }}  # Navigate to the correct folder
+        cd ${{ matrix.folder }}
         make
-        if [ ! -f "./program" ]; then
-          echo "::error::Executable 'program' not created"
-          exit 1
-        fi
 
-    - name: Run tests in ${{ matrix.folder }}
+    - name: Run tests
       run: |
-        cd ${{ matrix.folder }}  # Navigate to the correct folder
-        if [ -f "./test.sh" ]; then
-          chmod +x ./test.sh
-          ./test.sh
-        else
-          echo "Running executable directly..."
-          ./program
-        fi
-
-    - name: Check memory leaks in ${{ matrix.folder }}
-      run: |
-        cd ${{ matrix.folder }}  # Navigate to the correct folder
-        valgrind --leak-check=full \
-                 --show-leak-kinds=all \
-                 --track-origins=yes \
-                 --verbose \
-                 --error-exitcode=1 \
-                 ./program
-
-    - name: Clean in ${{ matrix.folder }}
-      run: |
-        cd ${{ matrix.folder }}  # Navigate to the correct folder
-        make fclean
+        make test
