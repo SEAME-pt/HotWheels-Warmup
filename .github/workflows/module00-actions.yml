@@ -15,30 +15,6 @@ on:
       - '.github/workflows/module00-actions.yml'
 
 jobs:
-  check-modified-folders:
-    runs-on: ubuntu-latest
-    outputs:
-      modified_folders: ${{ steps.get-folders.outputs.folders }}
-
-    steps:
-    - uses: actions/checkout@v2
-      with:
-        fetch-depth: 0  # Needed for comparing changes
-
-    - name: Get modified folders
-      id: get-folders
-      run: |
-        if [ "${{ github.event_name }}" = "push" ]; then
-          # Detect changes for push events
-          CHANGED=$(git diff --name-only HEAD | grep "^Module00/ex[0-9][0-9]*/" | cut -d/ -f2 | sort -u | jq -R -s -c 'split("\n")[:-1]')
-        else
-          # Detect changes for pull request events
-          CHANGED=$(git diff --name-only origin/${{ github.base_ref }}...HEAD | grep "^Module00/ex[0-9][0-9]*/" | cut -d/ -f2 | sort -u | jq -R -s -c 'split("\n")[:-1]')
-        fi
-        echo "folders=$CHANGED" >> $GITHUB_OUTPUT
-        echo "Modified folders: $CHANGED"
-        echo "Modified files: $(git diff --name-only HEAD)"
-
   build-and-test:
     needs: check-modified-folders
     runs-on: ubuntu-latest

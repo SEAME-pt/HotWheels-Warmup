@@ -1,38 +1,77 @@
-name: Run Action on Folder Change
+name: Module Tests
 
 on:
   push:
+    #branches: [ main ]
     paths:
       - 'Module01/ex00/**'
       - 'Module01/ex01/**'
       - 'Module01/ex02/**'
+      - '.github/workflows/module01-actions.yml'
   pull_request:
+    #branches: [ main ]
     paths:
       - 'Module01/ex00/**'
       - 'Module01/ex01/**'
       - 'Module01/ex02/**'
+      - '.github/workflows/module01-actions.yml'
 
 jobs:
-  check-modified-files:
+  build-and-test:
+    needs: check-modified-folders
     runs-on: ubuntu-latest
+    if: fromJSON(needs.check-modified-folders.outputs.modified_folders)[0] != null
+
+    strategy:
+      matrix:
+        folder: ${{ fromJSON(needs.check-modified-folders.outputs.modified_folders) }}
+      fail-fast: false
+
+    defaults:
+      run:
+        working-directory: module/${{ matrix.folder }}
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+    - uses: actions/checkout@v2
 
-    - name: List changed files
+    - name: Setup compiler and tools
       run: |
-        echo "Changed files:"
-        git diff --name-only ${{ github.event.before }} ${{ github.event.after }}  # Show files modified in push/pull request
+        sudo apt-get update
+        sudo apt-get install -y g++ make valgrind
 
-    - name: Run action if files in the folder are modified
+    - name: Check Makefile exists
       run: |
-        CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }})
-
-        if echo "$CHANGED_FILES" | grep -q '^Module01/ex02/'; then
-          echo "Files inside 'Module01/ex02/' have been modified. Running action..."
-          # Put your custom action/command here, for example:
-          # ./your-script.sh
-        else
-          echo "No files in 'Module01/ex02/' have been modified. Skipping action."
+        if [ ! -f "Makefile" ]; then
+          echo "::error::Makefile not found in ${{ matrix.folder }}"
+          exit 1
         fi
+
+    - name: Compile
+      run: |
+        make
+        if [ ! -f "./program" ]; then
+          echo "::error::Executable 'program' not created"
+          exit 1
+        fi
+
+    - name: Run tests
+      run: |
+        if [ -f "./test.sh" ]; then
+          chmod +x ./test.sh
+          ./test.sh
+        else
+          echo "Running executable directly..."
+          ./program
+        fi
+
+    - name: Check memory leaks
+      run: |
+        valgrind --leak-check=full \
+                 --show-leak-kinds=all \
+                 --track-origins=yes \
+                 --verbose \
+                 --error-exitcode=1 \
+                 ./program
+
+    - name: Clean
+      run: make fclean
