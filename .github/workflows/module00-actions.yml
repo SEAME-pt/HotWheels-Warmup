@@ -2,13 +2,13 @@ name: Module Tests
 
 on:
   push:
-    branches: [ main ]
+    #branches: [ main ]
     paths:
       - 'module/ex02/**'
       - 'module/ex03/**'
       - '.github/workflows/module00-actions.yml'
   pull_request:
-    branches: [ main ]
+    #branches: [ main ]
     paths:
       - 'module/ex02/**'
       - 'module/ex03/**'
