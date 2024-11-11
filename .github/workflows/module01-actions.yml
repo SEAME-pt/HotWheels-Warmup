@@ -3,33 +3,28 @@ name: Module Tests
 on:
   push:
     #branches: [ main ]
-    paths:
-      - 'Module01/ex00/**'
-      - 'Module01/ex01/**'
-      - 'Module01/ex02/**'
-      - '.github/workflows/module01-actions.yml'
+    #paths:
+     # - 'Module01/ex00/**'
+     # - 'Module01/ex01/**'
+      #- 'Module01/ex02/**'
+      #- '.github/workflows/module01-actions.yml'
   pull_request:
     #branches: [ main ]
-    paths:
-      - 'Module01/ex00/**'
-      - 'Module01/ex01/**'
-      - 'Module01/ex02/**'
-      - '.github/workflows/module01-actions.yml'
+    #paths:
+      #- 'Module01/ex00/**'
+      #- 'Module01/ex01/**'
+      #- 'Module01/ex02/**'
+      #- '.github/workflows/module01-actions.yml'
 
 jobs:
   build-and-test:
-    needs: check-modified-folders
     runs-on: ubuntu-latest
-    if: fromJSON(needs.check-modified-folders.outputs.modified_folders)[0] != null
 
     strategy:
       matrix:
-        folder: ${{ fromJSON(needs.check-modified-folders.outputs.modified_folders) }}
-      fail-fast: false
-
-    defaults:
-      run:
-        working-directory: module/${{ matrix.folder }}
+          - 'Module01/ex01'
+          - 'Module01/ex02'
+          - 'Module01/ex03'
 
     steps:
     - uses: actions/checkout@v2
