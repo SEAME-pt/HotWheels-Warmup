@@ -34,16 +34,6 @@ jobs:
         #sudo apt-get update
         #sudo apt-get install -y g++ make valgrind
 
-    - name: Check Makefile exists in ${{ matrix.folder }}
-      run: |
-        echo "Checking if Makefile exists in ${matrix.folder}"
-        cd ${{ matrix.folder }}
-        ls -l  # Debug: list contents of the folder to verify if Makefile is there
-        if [ ! -f "Makefile" ]; then
-          echo "::error::Makefile not found in ${{ matrix.folder }}"
-          exit 1
-        fi
-
     - name: Compile in ${{ matrix.folder }}
       run: |
         cd ${{ matrix.folder }}
