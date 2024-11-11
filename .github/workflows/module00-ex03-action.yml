@@ -19,4 +19,5 @@ jobs:
       
     - name: Run tests
       run: |
+        cd Modules/Module00/ex03
         make test
