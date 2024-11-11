@@ -1,7 +1,7 @@
 name: Module 01 Tests
 
 on:
-  push:
+  push:w
     # paths:
     #   - 'Module01/ex00/**'
     #   - 'Module01/ex01/**'
@@ -18,9 +18,9 @@ jobs:
     strategy:
       matrix:
         folder:
-          - 'Modules/Module00/ex00'
-          - 'Modules/Module00/ex01'
-          - 'Modules/Module00/ex02'
+          - 'Modules/Module01/ex00'
+          - 'Modules/Module02/ex01'
+          - 'Modules/Module03/ex02'
     steps:
     - uses: actions/checkout@v3
 
