@@ -19,8 +19,8 @@ jobs:
       matrix:
         folder:
           - 'Modules/Module01/ex00'
-          - 'Modules/Module02/ex01'
-          - 'Modules/Module03/ex02'
+          - 'Modules/Module01/ex01'
+          - 'Modules/Module01/ex02'
     steps:
     - uses: actions/checkout@v3
 
