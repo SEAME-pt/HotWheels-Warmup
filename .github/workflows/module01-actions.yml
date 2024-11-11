@@ -2,19 +2,17 @@ name: Module Tests
 
 on:
   push:
-    #branches: [ main ]
-    #paths:
-     # - 'Module01/ex00/**'
-     # - 'Module01/ex01/**'
-      #- 'Module01/ex02/**'
-      #- '.github/workflows/module01-actions.yml'
+    # Uncomment and define paths if needed, like:
+    # paths:
+    #   - 'Module01/ex00/**'
+    #   - 'Module01/ex01/**'
+    #   - 'Module01/ex02/**'
   pull_request:
-    #branches: [ main ]
-    #paths:
-      #- 'Module01/ex00/**'
-      #- 'Module01/ex01/**'
-      #- 'Module01/ex02/**'
-      #- '.github/workflows/module01-actions.yml'
+    # Uncomment and define paths if needed, like:
+    # paths:
+    #   - 'Module01/ex00/**'
+    #   - 'Module01/ex01/**'
+    #   - 'Module01/ex02/**'
 
 jobs:
   build-and-test:
@@ -35,7 +33,7 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y g++ make valgrind
 
-    - name: Check Makefile exists
+    - name: Check Makefile exists in ${{ matrix.folder }}
       run: |
         cd ${{ matrix.folder }}
         if [ ! -f "Makefile" ]; then
@@ -43,32 +41,37 @@ jobs:
           exit 1
         fi
 
-    - name: Compile
+    - name: Compile in ${{ matrix.folder }}
       run: |
+        cd ${{ matrix.folder }}
         make
-        if [ ! -f "./program" ]; then
-          echo "::error::Executable 'program' not created"
+        if [ ! -f "./main" ]; then
+          echo "::error::Executable 'main' not created"
           exit 1
         fi
 
-    - name: Run tests
+    - name: Run tests in ${{ matrix.folder }}
       run: |
+        cd ${{ matrix.folder }}
         if [ -f "./test.sh" ]; then
           chmod +x ./test.sh
           ./test.sh
         else
           echo "Running executable directly..."
-          ./program
+          ./main
         fi
 
-    - name: Check memory leaks
+    - name: Check memory leaks in ${{ matrix.folder }}
       run: |
+        cd ${{ matrix.folder }}
         valgrind --leak-check=full \
                  --show-leak-kinds=all \
                  --track-origins=yes \
                  --verbose \
                  --error-exitcode=1 \
-                 ./program
+                 ./main
 
-    - name: Clean
-      run: make fclean
+    - name: Clean in ${{ matrix.folder }}
+      run: |
+        cd ${{ matrix.folder }}  # Navigate to the correct folder
+        make fclean
