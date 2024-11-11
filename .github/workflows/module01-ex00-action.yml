@@ -1,4 +1,4 @@
-name: Run Shell Tests in Specific Folder
+name: Running tests for M01 EX00
 
 on:
   push:
