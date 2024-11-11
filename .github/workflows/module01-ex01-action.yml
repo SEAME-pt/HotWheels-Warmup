@@ -3,7 +3,7 @@ name: Run Shell Tests in Specific Folder
 on:
   push:
     paths:
-      - 'Modules/Module01/ex00'
+      - 'Modules/Module01/ex01'
 
 jobs:
   test:
@@ -14,10 +14,10 @@ jobs:
 
     - name: Compile main.cpp
       run: |
-        cd Modules/Module01/ex00/srcs
-        g++ -o tests/program main.cpp Car.cpp
+        cd Modules/Module01/ex01
+        g++ -o tests/program main.cpp Car.cpp SportsCar.cpp
 
     - name: Run tests
       run: |
-        cd Modules/Module01/ex00/tests
+        cd Modules/Module01/ex01/tests
         bash script.sh
