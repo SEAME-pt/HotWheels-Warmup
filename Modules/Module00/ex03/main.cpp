@@ -2,7 +2,6 @@
 #include <algorithm>
 #include <iostream>
 
-//
 void run() {
   Phonebook phonebook;
   std::string command;
