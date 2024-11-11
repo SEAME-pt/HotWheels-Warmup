@@ -4,17 +4,17 @@ on:
   push:
     #branches: [ main ]
     paths:
-      - 'Module01/ex00/**'
-      - 'Module01/ex01/**'
-      - 'Module01/ex02/**'
-      - '.github/workflows/module01-actions.yml'
+      #- 'Module01/ex00/**'
+      #- 'Module01/ex01/**'
+      #- 'Module01/ex02/**'
+      #- '.github/workflows/module01-actions.yml'
   pull_request:
     #branches: [ main ]
-    paths:
-      - 'Module01/ex00/**'
-      - 'Module01/ex01/**'
-      - 'Module01/ex02/**'
-      - '.github/workflows/module01-actions.yml'
+    #paths:
+      #- 'Module01/ex00/**'
+      #- 'Module01/ex01/**'
+      #- 'Module01/ex02/**'
+      #- '.github/workflows/module01-actions.yml'
 
 jobs:
   check-modified-folders:
