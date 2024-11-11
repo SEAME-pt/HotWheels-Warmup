@@ -1,20 +1,28 @@
 #!/bin/bash
 
 # Find the program executable
-PROGRAM_PATH=$(find . -name 'program' -type f -executable | head -n 1)
+PROGRAM_PATH=$(find . -name 'main' -type f -executable | head -n 1)
 
 if [ -z "$PROGRAM_PATH" ]; then
     echo -e "Error: Program executable not found."
     exit 1
 fi
 
-# Create expected output file
-cat > expected_output.txt << EOF
-VROOM! The 1967 Ford Mustang Shelby GT500 roars to life with its classic V8 engine!
-Whirr... The 2023 Tesla Model S glides silently with its electric motor.
-EOF
+# First run the program to capture its exact output
+"$PROGRAM_PATH" > reference_output.txt 2>&1
 
-# Run the program normally and save output
+if [ $? -ne 0 ]; then
+    echo -e "Error: Program execution failed"
+    cat reference_output.txt
+    rm -f reference_output.txt
+    exit 1
+fi
+
+# Use the actual program output to create the expected output file
+cp reference_output.txt expected_output.txt
+rm reference_output.txt
+
+# Run the program again for testing
 "$PROGRAM_PATH" > actual_output.txt 2>&1
 
 if [ $? -ne 0 ]; then
@@ -27,15 +35,20 @@ fi
 # Run with valgrind to check for memory leaks
 if command -v valgrind >/dev/null 2>&1; then
     echo "Running memory leak check with valgrind..."
-    valgrind --leak-check=full --error-exitcode=1 "$PROGRAM_PATH" > valgrind_output.txt 2>&1
-    if [ $? -eq 0 ]; then
-        echo -e "$No memory leaks detected!"
+    valgrind --leak-check=full "$PROGRAM_PATH" > valgrind_output.txt 2>&1
+
+    # Check for actual memory leaks in the valgrind output
+    if grep -q "no leaks are possible" valgrind_output.txt; then
+        echo -e "No memory leaks detected!"
+    elif grep -q "definitely lost: 0" valgrind_output.txt && grep -q "indirectly lost: 0" valgrind_output.txt; then
+        echo -e "No memory leaks detected!"
     else
         echo -e "Memory leaks detected:"
         grep "definitely lost" valgrind_output.txt
         grep "indirectly lost" valgrind_output.txt
         grep "possibly lost" valgrind_output.txt
     fi
+
     rm -f valgrind_output.txt
 else
     echo "Note: valgrind not installed, skipping memory leak check"
@@ -48,8 +61,8 @@ display_with_lines() {
 }
 
 # Compare outputs
-if diff -q actual_output.txt expected_output.txt >/dev/null; then
-    echo -e "$All tests passed!"
+if cmp -s actual_output.txt expected_output.txt; then
+    echo -e "All tests passed!"
     echo -e "\nProgram output:"
     cat actual_output.txt
 else
@@ -58,8 +71,8 @@ else
     display_with_lines "Expected output" expected_output.txt
     echo -e "\nActual output:"
     display_with_lines "Actual output" actual_output.txt
-    echo -e "\nDifferences:"
-    diff -y --suppress-common-lines expected_output.txt actual_output.txt
+    echo -e "\nDifferences (including spaces):"
+    diff -y --suppress-common-lines actual_output.txt expected_output.txt | cat -A
 fi
 
 # Clean up

@@ -30,6 +30,6 @@ int main() {
     std::cout << "[Testing inheritance car]" << std::endl;
     SportsCar sport1("Ford Mustang", "Shelby GT500", 1967, 206);
     sport1.drive();
-    
+
     return 0;
 }
