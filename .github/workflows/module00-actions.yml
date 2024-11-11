@@ -19,6 +19,7 @@ jobs:
 
     - name: Compile executable
       run: |
+        echo ${{ matrix.folder }}
         cd ${{ matrix.folder }}
         make
 
