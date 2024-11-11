@@ -5,7 +5,7 @@ on:
     branches:
       - github-actions
     paths:
-      - 'Modules/Module00/ex03'
+      - Modules/Module00/ex03
 
 jobs:
   test:
