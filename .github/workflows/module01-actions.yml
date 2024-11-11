@@ -1,7 +1,7 @@
 name: Module 01 Tests
 
 on:
-  push:w
+  push:
     # paths:
     #   - 'Module01/ex00/**'
     #   - 'Module01/ex01/**'
