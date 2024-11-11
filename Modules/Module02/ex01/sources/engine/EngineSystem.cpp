@@ -84,7 +84,7 @@ void EngineSystem::shutdown() {
 }
 
 std::string EngineSystem::getInfo() const {
-  std::string info = "Engine System\n";
+  std::string info = "\nEngine System\n";
   if (this->motor) {
     info += "  Motor: " + motor->getInfo() + "\n";
   }

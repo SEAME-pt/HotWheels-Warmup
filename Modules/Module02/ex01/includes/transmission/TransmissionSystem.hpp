@@ -9,6 +9,7 @@ class TransmissionSystem {
 private:
   std::shared_ptr<Clutch> clutch;
   std::shared_ptr<Gearbox> gearbox;
+  std::vector<double> gearRatios;
 
 public:
   TransmissionSystem();
@@ -20,6 +21,7 @@ public:
 
   bool isClutchEngaged() const;
   int getCurrentGear() const;
+  double getCurrentGearRatio() const;
 
   void engageClutch();
   void disengageClutch();
