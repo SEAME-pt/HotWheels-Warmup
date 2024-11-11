@@ -1,101 +1,38 @@
-name: Module Tests
+name: Run Action on Folder Change
 
 on:
   push:
-    #branches: [ main ]
     paths:
-      #- 'Module01/ex00/**'
-      #- 'Module01/ex01/**'
-      #- 'Module01/ex02/**'
-      #- '.github/workflows/module01-actions.yml'
+      - 'Module01/ex00/**'
+      - 'Module01/ex01/**'
+      - 'Module01/ex02/**'
   pull_request:
-    #branches: [ main ]
-    #paths:
-      #- 'Module01/ex00/**'
-      #- 'Module01/ex01/**'
-      #- 'Module01/ex02/**'
-      #- '.github/workflows/module01-actions.yml'
+    paths:
+      - 'Module01/ex00/**'
+      - 'Module01/ex01/**'
+      - 'Module01/ex02/**'
 
 jobs:
-  check-modified-folders:
+  check-modified-files:
     runs-on: ubuntu-latest
-    outputs:
-      modified_folders: ${{ steps.get-folders.outputs.folders }}
 
     steps:
-    - uses: actions/checkout@v2
-      with:
-        fetch-depth: 0  # Needed for comparing changes
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-    - name: Get modified folders
-      id: get-folders
+    - name: List changed files
       run: |
-        if [ "${{ github.event_name }}" = "push" ]; then
-          # Detect changes for push events
-          CHANGED=$(git diff --name-only HEAD | grep "^Module00/ex[0-9][0-9]*/" | cut -d/ -f2 | sort -u | jq -R -s -c 'split("\n")[:-1]')
+        echo "Changed files:"
+        git diff --name-only ${{ github.event.before }} ${{ github.event.after }}  # Show files modified in push/pull request
+
+    - name: Run action if files in the folder are modified
+      run: |
+        CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }})
+
+        if echo "$CHANGED_FILES" | grep -q '^Module01/ex02/'; then
+          echo "Files inside 'Module01/ex02/' have been modified. Running action..."
+          # Put your custom action/command here, for example:
+          # ./your-script.sh
         else
-          # Detect changes for pull request events
-          CHANGED=$(git diff --name-only origin/${{ github.base_ref }}...HEAD | grep "^Module00/ex[0-9][0-9]*/" | cut -d/ -f2 | sort -u | jq -R -s -c 'split("\n")[:-1]')
+          echo "No files in 'Module01/ex02/' have been modified. Skipping action."
         fi
-        echo "folders=$CHANGED" >> $GITHUB_OUTPUT
-        echo "Modified folders: $CHANGED"
-        echo "Modified files: $(git diff --name-only HEAD)"
-
-  build-and-test:
-    needs: check-modified-folders
-    runs-on: ubuntu-latest
-    if: fromJSON(needs.check-modified-folders.outputs.modified_folders)[0] != null
-
-    strategy:
-      matrix:
-        folder: ${{ fromJSON(needs.check-modified-folders.outputs.modified_folders) }}
-      fail-fast: false
-
-    defaults:
-      run:
-        working-directory: module/${{ matrix.folder }}
-
-    steps:
-    - uses: actions/checkout@v2
-
-    - name: Setup compiler and tools
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y g++ make valgrind
-
-    - name: Check Makefile exists
-      run: |
-        if [ ! -f "Makefile" ]; then
-          echo "::error::Makefile not found in ${{ matrix.folder }}"
-          exit 1
-        fi
-
-    - name: Compile
-      run: |
-        make
-        if [ ! -f "./program" ]; then
-          echo "::error::Executable 'program' not created"
-          exit 1
-        fi
-
-    - name: Run tests
-      run: |
-        if [ -f "./test.sh" ]; then
-          chmod +x ./test.sh
-          ./test.sh
-        else
-          echo "Running executable directly..."
-          ./program
-        fi
-
-    - name: Check memory leaks
-      run: |
-        valgrind --leak-check=full \
-                 --show-leak-kinds=all \
-                 --track-origins=yes \
-                 --verbose \
-                 --error-exitcode=1 \
-                 ./program
-
-    - name: Clean
-      run: make fclean
