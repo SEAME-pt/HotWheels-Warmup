@@ -4,14 +4,14 @@ on:
   push:
     #branches: [ main ]
     paths:
-      - 'module/ex02/**'
-      - 'module/ex03/**'
+      - 'Module00/ex02/**'
+      - 'Module00/ex03/**'
       - '.github/workflows/module00-actions.yml'
   pull_request:
     #branches: [ main ]
     paths:
-      - 'module/ex02/**'
-      - 'module/ex03/**'
+      - 'Module00/ex02/**'
+      - 'Module00/ex03/**'
       - '.github/workflows/module00-actions.yml'
 
 jobs:
