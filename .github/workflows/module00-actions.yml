@@ -1,4 +1,4 @@
-name: Module 01 Tests
+name: Module 00 Tests
 
 on:
   push:

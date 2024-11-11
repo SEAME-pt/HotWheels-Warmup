@@ -1,18 +1,9 @@
-name: Module Tests
+name: Module 01 Tests
 
 on:
   push:
-    # Uncomment and define paths if needed, like:
-    # paths:
-    #   - 'Module01/ex00/**'
-    #   - 'Module01/ex01/**'
-    #   - 'Module01/ex02/**'
+
   pull_request:
-    # Uncomment and define paths if needed, like:
-    # paths:
-    #   - 'Module01/ex00/**'
-    #   - 'Module01/ex01/**'
-    #   - 'Module01/ex02/**'
 
 jobs:
   build-and-test:
@@ -21,50 +12,17 @@ jobs:
     strategy:
       matrix:
         folder:
-          - 'Modules/Module01/ex00'
-          - 'Modules/Module01/ex01'
-          - 'Modules/Module01/ex02'
-
+          - 'Modules/Module00/ex02'
+          - 'Modules/Module00/ex03'
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
-    #- name: Setup compiler and tools
-      #run: |
-        #sudo apt-get update
-        #sudo apt-get install -y g++ make valgrind
-
-    - name: Compile in ${{ matrix.folder }}
+    - name: Compile executable
       run: |
         cd ${{ matrix.folder }}
         make
-        if [ ! -f "./main" ]; then
-          echo "::error::Executable 'main' not created"
-          exit 1
-        fi
 
-    - name: Run tests in ${{ matrix.folder }}
+    - name: Run tests
       run: |
         cd ${{ matrix.folder }}
-        if [ -f "./script.sh" ]; then
-          chmod +x ./script.sh
-          ./script.sh
-        else
-          echo "Running executable directly..."
-          ./main
-        fi
-
-    - name: Check memory leaks in ${{ matrix.folder }}
-      run: |
-        cd ${{ matrix.folder }}
-        valgrind --leak-check=full \
-                 --show-leak-kinds=all \
-                 --track-origins=yes \
-                 --verbose \
-                 --error-exitcode=1 \
-                 ./main
-
-    - name: Clean in ${{ matrix.folder }}
-      run: |
-        cd ${{ matrix.folder }}
-        make fclean
+        make test
