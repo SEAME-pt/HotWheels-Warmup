@@ -1,5 +1,5 @@
 # Makefile for compiling the project with CMake
-# 
+
 # Define the build directory and executable name
 BUILD_DIR = build
 EXECUTABLE = main
