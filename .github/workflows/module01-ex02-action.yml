@@ -12,12 +12,11 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Compile main.cpp
+    - name: Compile executable
       run: |
         cd Modules/Module01/ex02
-        g++ -o tests/program main.cpp ClassicCar.cpp EletricCar.cpp ACar.cpp
+        make
 
     - name: Run tests
       run: |
-        cd Modules/Module01/ex02/tests
-        bash script.sh
+        make test
