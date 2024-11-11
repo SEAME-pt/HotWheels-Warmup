@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>contact-book.png</file>
+    </qresource>
+</RCC>
