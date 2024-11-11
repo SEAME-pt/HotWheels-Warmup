@@ -1,11 +1,15 @@
 #include "TransmissionSystem.hpp"
 #include <iostream>
 
-TransmissionSystem::TransmissionSystem() : clutch(nullptr), gearbox(nullptr) {}
+TransmissionSystem::TransmissionSystem() : clutch(nullptr), gearbox(nullptr) {
+  this->gearRatios = {0.3, 0.6, 1.0, 1.3, 1.5, 1.8};
+}
 
 TransmissionSystem::TransmissionSystem(std::shared_ptr<Clutch> clutch,
                                        std::shared_ptr<Gearbox> gearbox)
-    : clutch(clutch), gearbox(gearbox) {}
+    : clutch(clutch), gearbox(gearbox) {
+  this->gearRatios = {0.3, 0.6, 1.0, 1.3, 1.5, 1.8};
+}
 
 TransmissionSystem::TransmissionSystem(const TransmissionSystem &other)
     : clutch(other.clutch), gearbox(other.gearbox) {}
@@ -27,6 +31,14 @@ bool TransmissionSystem::isClutchEngaged() const {
 
 int TransmissionSystem::getCurrentGear() const {
   return this->gearbox ? this->gearbox->getCurrentGear() : 0;
+}
+
+double TransmissionSystem::getCurrentGearRatio() const {
+  int gear = this->getCurrentGear();
+  std::cout << gear << "|" << this->gearRatios.size() << std::endl;
+  return (gear >= 1 && gear <= this->gearRatios.size())
+             ? this->gearRatios[gear - 1]
+             : 0.0;
 }
 
 void TransmissionSystem::engageClutch() {
@@ -72,7 +84,7 @@ void TransmissionSystem::shiftDown() {
 }
 
 std::string TransmissionSystem::getInfo() const {
-  std::string info = "Transmission System\n";
+  std::string info = "\nTransmission System\n";
   if (this->clutch) {
     info += "  " + this->clutch->getInfo() + "\n";
   }

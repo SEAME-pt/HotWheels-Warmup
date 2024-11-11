@@ -28,8 +28,11 @@ Car::~Car() {}
 int Car::getSpeed() const { return this->speed; }
 
 void Car::updateSpeed() {
-  if (this->engineSystem && this->engineSystem->getIsRunning()) {
-    this->speed = this->engineSystem->getPower();
+  if (this->engineSystem && this->transmissionSystem &&
+      this->engineSystem->getIsRunning()) {
+    int power = this->engineSystem->getPower();
+    double gearRatio = this->transmissionSystem->getCurrentGearRatio();
+    this->speed = static_cast<int>(power * gearRatio);
   } else {
     this->speed = 0;
   }
@@ -93,7 +96,7 @@ void Car::stop() {
 
 std::string Car::getCarInfo() const {
   std::string info = "Car Status:\n";
-  info += "  Speed: " + std::to_string(this->speed) + " units\n";
+  info += "Speed: " + std::to_string(this->speed) + " units\n";
   if (this->engineSystem) {
     info += this->engineSystem->getInfo();
   }
