@@ -4,6 +4,7 @@
 #include "Clutch.hpp"
 #include "Gearbox.hpp"
 #include <memory>
+#include <vector>
 
 class TransmissionSystem {
 private:
