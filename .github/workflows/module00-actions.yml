@@ -16,18 +16,13 @@ on:
 
 jobs:
   build-and-test:
-    needs: check-modified-folders
     runs-on: ubuntu-latest
-    if: fromJSON(needs.check-modified-folders.outputs.modified_folders)[0] != null
 
     strategy:
       matrix:
-        folder: ${{ fromJSON(needs.check-modified-folders.outputs.modified_folders) }}
-      fail-fast: false
-
-    defaults:
-      run:
-        working-directory: module/${{ matrix.folder }}
+        folder:
+          - 'Module00/ex02'
+          - 'Module00/ex03'
 
     steps:
     - uses: actions/checkout@v2
