@@ -12,11 +12,11 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Compile main.cpp
+    - name: Compile executable
       run: |
         cd Modules/Module00/ex03
-        g++ -o tests/program main.cpp Contacts.cpp PhoneBook.cpp
+        make
       
     - name: Run tests
       run: |
-        cd Modules/Module00/ex03/tests
+        make test
