@@ -1,0 +1,23 @@
+name: Run Shell Tests in Specific Folder
+
+on:
+  push:
+    paths:
+      - 'Modules/Module01/ex00'
+
+jobs:
+  test:
+    runs-on: self-hosted
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Compile main.cpp
+      run: |
+        cd Modules/Module01/ex00
+        g++ -o tests/program main.cpp Contacts.cpp PhoneBook.cpp
+
+    - name: Run tests
+      run: |
+        cd Modules/Module01/ex00/tests
+        bash script.sh
