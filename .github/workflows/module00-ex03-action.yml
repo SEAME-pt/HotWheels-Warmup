@@ -2,10 +2,8 @@ name: Running tests for M00 EX03
 
 on:
   push:
-    branches:
-      - github-actions
     paths:
-      - Modules/Module00/ex03
+      - './Modules/Module00/ex03'
 
 jobs:
   test:
