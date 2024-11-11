@@ -2,17 +2,15 @@ name: Module Tests
 
 on:
   push:
-    # Uncomment and define paths if needed, like:
-    # paths:
-    #   - 'Module01/ex00/**'
-    #   - 'Module01/ex01/**'
-    #   - 'Module01/ex02/**'
+     paths:
+       - 'Module01/ex00/**'
+       - 'Module01/ex01/**'
+       - 'Module01/ex02/**'
   pull_request:
-    # Uncomment and define paths if needed, like:
-    # paths:
-    #   - 'Module01/ex00/**'
-    #   - 'Module01/ex01/**'
-    #   - 'Module01/ex02/**'
+     paths:
+       - 'Module01/ex00/**'
+       - 'Module01/ex01/**'
+       - 'Module01/ex02/**'
 
 jobs:
   build-and-test:
@@ -26,7 +24,18 @@ jobs:
           - 'Module01/ex02'
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    # Debugging step: Print current working directory and root directory contents
+    - name: Print current directory and list contents
+      run: |
+        echo "Current working directory:"
+        pwd
+        echo "Listing root directory contents:"
+        ls -l
+        echo "Listing contents of the entire repository recursively:"
+        ls -R  # List all files recursively to verify folder structure
 
     #- name: Setup compiler and tools
       #run: |
@@ -35,7 +44,9 @@ jobs:
 
     - name: Check Makefile exists in ${{ matrix.folder }}
       run: |
+        echo "Checking if Makefile exists in ${matrix.folder}"
         cd ${{ matrix.folder }}  # Navigate to the correct folder
+        ls -l  # Debug: list contents of the folder to verify if Makefile is there
         if [ ! -f "Makefile" ]; then
           echo "::error::Makefile not found in ${{ matrix.folder }}"
           exit 1
