@@ -21,6 +21,11 @@ int main() {
     std::cout << "Testing copy constructor (should match car2):" << std::endl;
     car3.drive();
 
+    // Test copy constructor
+    Car car4(car2);
+    std::cout << "Testing copy constructor (should match car2):" << std::endl;
+    car4.drive();
+
     // Test assignment operator
     car1 = car3;
     std::cout << "Testing assignment operator (should match car3):" << std::endl;
