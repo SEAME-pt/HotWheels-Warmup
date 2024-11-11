@@ -3,7 +3,7 @@ name: Running tests for M01 EX01
 on:
   push:
     paths:
-      - 'Modules/Module01/ex01'
+      - 'Modules/Module01/ex01/**'
 
 jobs:
   test:
