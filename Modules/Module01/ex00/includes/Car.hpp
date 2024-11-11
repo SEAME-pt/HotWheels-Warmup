@@ -17,5 +17,6 @@ public:
   void setName(const std::string &name);
   void setSpeed(unsigned int speed);
   const std::string &getName(void);
+
   unsigned int getSpeed(void);
 };

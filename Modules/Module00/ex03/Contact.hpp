@@ -19,6 +19,7 @@ public:
     std::string getNickname() const;
     bool getBookmarkStatus() const;
 
+
     void setBookmark(bool bookmarkStatus);
     void displayContact() const;
 };
