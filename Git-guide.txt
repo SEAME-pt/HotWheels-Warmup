@@ -1,0 +1,41 @@
+#clone the git repository
+git clone <link> <folder_name>
+
+#change to the local main branch
+#(by default you don't need to do this)
+git checkout main
+
+#create a local branch and set it's upstream to main
+#ex: git checkout -b module00 origin/main
+git checkout -b <branch_name> origin/main
+
+#create a remote branch for your local branch to track
+#ex: git push -u origin module00 (local and remote should have the same name)
+git push -u origin <new_remote_branch>
+
+#create another local and set it's upstream to the new remote branch
+#ex: git checkout -b ex00 origin/module00
+git checkout -b <new_branch_name> origin/<new_remote_branch
+
+#add this rule to your git.config
+#this command forces the local branch push to your upstream
+#allowing your local branch to push to a remote branch with a different name
+git config --global push.default upstream
+
+#now everytime you push from your local branch
+#it will update the upstream remote branch
+# [ex00]
+#	- git add
+#	- git commit
+#	- git push
+#
+# [module00]
+#	- git status: "module00 is behind module00 by 1 commit"
+#	- git pull
+#	- git status: "Up to date"
+
+
+#when you're done with the local branch and already pushed your changes
+#change to the upstream branch and delete the local
+git checkout module 00
+git branch -d ex00
