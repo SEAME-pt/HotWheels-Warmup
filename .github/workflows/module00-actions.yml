@@ -29,12 +29,15 @@ jobs:
       id: get-folders
       run: |
         if [ "${{ github.event_name }}" = "push" ]; then
-          CHANGED=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | grep "^module/ex[0-9][0-9]*/" | cut -d/ -f2 | sort -u | jq -R -s -c 'split("\n")[:-1]')
+          # Detect changes for push events
+          CHANGED=$(git diff --name-only HEAD | grep "^Module00/ex[0-9][0-9]*/" | cut -d/ -f2 | sort -u | jq -R -s -c 'split("\n")[:-1]')
         else
-          CHANGED=$(git diff --name-only origin/${{ github.base_ref }} HEAD | grep "^module/ex[0-9][0-9]*/" | cut -d/ -f2 | sort -u | jq -R -s -c 'split("\n")[:-1]')
+          # Detect changes for pull request events
+          CHANGED=$(git diff --name-only origin/${{ github.base_ref }}...HEAD | grep "^Module00/ex[0-9][0-9]*/" | cut -d/ -f2 | sort -u | jq -R -s -c 'split("\n")[:-1]')
         fi
         echo "folders=$CHANGED" >> $GITHUB_OUTPUT
         echo "Modified folders: $CHANGED"
+        echo "Modified files: $(git diff --name-only HEAD)"
 
   build-and-test:
     needs: check-modified-folders
