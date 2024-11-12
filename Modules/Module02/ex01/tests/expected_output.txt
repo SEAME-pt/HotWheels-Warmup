@@ -1,0 +1,164 @@
+
+=========================
+      Car Control Menu
+=========================
+1. Start Car
+2. Accelerate
+3. Decelerate
+4. Shift Up
+5. Shift Down
+6. Stop Car
+7. Display Car Info
+0. Exit
+=========================
+Enter your choice:
+Starting the car...
+Igniting the engine...
+The motor is running with 400 horsepower using Diesel fuel.
+The piston moves up and down with a stroke length of 100 mm, operating smoothly within the engine.
+The piston moves up and down with a stroke length of 100 mm, operating smoothly within the engine.
+The crankshaft rotates to convert linear piston motion into rotational energy, supporting 2 cylinders.
+1|6
+Clutch disengaged.
+Car started.
+
+=========================
+      Car Control Menu
+=========================
+1. Start Car
+2. Accelerate
+3. Decelerate
+4. Shift Up
+5. Shift Down
+6. Stop Car
+7. Display Car Info
+0. Exit
+=========================
+Enter your choice:
+Accelerating...
+Increasing engine power. Current power: 10 units.
+1|6
+Accelerating. Current speed: 3 units.
+
+=========================
+      Car Control Menu
+=========================
+1. Start Car
+2. Accelerate
+3. Decelerate
+4. Shift Up
+5. Shift Down
+6. Stop Car
+7. Display Car Info
+0. Exit
+=========================
+Enter your choice:
+Shifting up...
+Clutch disengaged.
+Shifted up to gear 2.
+Clutch engaged.
+
+=========================
+      Car Control Menu
+=========================
+1. Start Car
+2. Accelerate
+3. Decelerate
+4. Shift Up
+5. Shift Down
+6. Stop Car
+7. Display Car Info
+0. Exit
+=========================
+Enter your choice:
+Accelerating...
+Increasing engine power. Current power: 20 units.
+2|6
+Accelerating. Current speed: 12 units.
+
+=========================
+      Car Control Menu
+=========================
+1. Start Car
+2. Accelerate
+3. Decelerate
+4. Shift Up
+5. Shift Down
+6. Stop Car
+7. Display Car Info
+0. Exit
+=========================
+Enter your choice:
+Shifting up...
+Clutch disengaged.
+Shifted up to gear 3.
+Clutch engaged.
+
+=========================
+      Car Control Menu
+=========================
+1. Start Car
+2. Accelerate
+3. Decelerate
+4. Shift Up
+5. Shift Down
+6. Stop Car
+7. Display Car Info
+0. Exit
+=========================
+Enter your choice:
+Decelerating...
+Decreasing engine power. Current power: 10 units.
+3|6
+Decelerating. Current speed: 10 units.
+
+=========================
+      Car Control Menu
+=========================
+1. Start Car
+2. Accelerate
+3. Decelerate
+4. Shift Up
+5. Shift Down
+6. Stop Car
+7. Display Car Info
+0. Exit
+=========================
+Enter your choice:
+Shifting down...
+Clutch disengaged.
+Shifted down to gear 2.
+Clutch engaged.
+
+=========================
+      Car Control Menu
+=========================
+1. Start Car
+2. Accelerate
+3. Decelerate
+4. Shift Up
+5. Shift Down
+6. Stop Car
+7. Display Car Info
+0. Exit
+=========================
+Enter your choice:
+Stopping the car...
+Shutting down the engine...
+Clutch disengaged.
+Car stopped.
+
+=========================
+      Car Control Menu
+=========================
+1. Start Car
+2. Accelerate
+3. Decelerate
+4. Shift Up
+5. Shift Down
+6. Stop Car
+7. Display Car Info
+0. Exit
+=========================
+Enter your choice:
+Exiting the program.

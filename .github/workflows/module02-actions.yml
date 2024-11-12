@@ -1,0 +1,29 @@
+name: Module 02 Tests
+
+on:
+  push:
+    # paths:
+    #   - 'Module02/ex01/**'
+  pull_request:
+    # paths:
+    #   - 'Module02/ex01/**'
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        folder:
+          - 'Modules/Module02/ex01'
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Compile executable
+      run: |
+        cd ${{ matrix.folder }}
+        make
+
+    - name: Run tests
+      run: |
+        cd ${{ matrix.folder }}
+        make test
