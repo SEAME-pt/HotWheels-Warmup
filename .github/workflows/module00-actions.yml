@@ -3,10 +3,10 @@ name: Module 00 Tests
 on:
   push:
     paths:
-      - 'Module00/'
+      - 'Modules/Module00/**'
   pull_request:
     paths:
-      - 'Module00/'
+      - 'Modules/Module00/**'
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
