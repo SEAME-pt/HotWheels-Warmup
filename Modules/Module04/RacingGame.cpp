@@ -32,7 +32,7 @@ RacingGame::RacingGame(QWidget *parent)
 
 RacingGame::~RacingGame()
 {
-    qDebug() << "[RacingGame] Cleaning up resources in destructor.";
+    qDebug() << "[RacingGame] Cleaning up resources in the destructor.";
     delete this->m_raceController;
     delete this->m_carDisplayManager;
     delete this->m_trackView;
