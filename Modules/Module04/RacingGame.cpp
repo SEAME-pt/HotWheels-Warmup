@@ -15,15 +15,15 @@ RacingGame::RacingGame(QWidget *parent)
     this->initializeScene();
     this->connectSignals();
 
-    // Set up TrackView to manage visual elements of the race track
+    // Set up TrackView for managing visual elements of the race track
     this->m_trackView = new TrackView(this->m_scene, &this->m_raceTrack, this->m_numCars);
     this->m_trackView->initializeTrackView();
 
-    // Initialize CarDisplayManager with the scene
+    // Initialize CarDisplayManager to handle car visuals in the scene
     qDebug() << "[RacingGame] Initializing CarDisplayManager.";
     this->m_carDisplayManager = new CarDisplayManager(this->m_scene);
 
-    // Initialize CarDisplayManager with the scene
+    // Initialize RaceController to manage race logic
     qDebug() << "[RacingGame] Initializing RaceController.";
     this->m_raceController = new RaceController(&this->m_raceTrack, this);
 
@@ -65,7 +65,7 @@ void RacingGame::setupCars()
     // Initialize car graphics in the CarDisplayManager
     this->m_carDisplayManager->initializeCars(this->m_numCars, startX, carDiameter, spacing);
 
-    // Connect RaceController's position update signal to the UI update slot
+    // Connect race updates to update car positions in the UI
     connect(this->m_raceController, &RaceController::carPositionUpdated, this, [=](int x, int y, int carIndex) {
         qDebug() << "[RacingGame] Updating car position in UI for car index" << carIndex << ": x =" << x << ", y =" << y;
         this->m_carDisplayManager->updateCarPosition(x, y, carIndex);
@@ -73,7 +73,7 @@ void RacingGame::setupCars()
 
     for (int i = 0; i < this->m_numCars; ++i) {
         int initialY = spacing + i * (carDiameter + spacing);
-        this->m_raceController->addCar(i, startX, initialY); // Call addCar for each car
+        this->m_raceController->addCar(i, startX, initialY); // Adds each car to the race
     }
 }
 
@@ -92,22 +92,21 @@ void RacingGame::pauseButtonClicked()
     qDebug() << "[RacingGame] Pause button clicked.";
 
     // Placeholder for pausing race logic
-    // You might add a call like this->m_raceController->pauseRace(); in the future.
+    // Future implementation may involve m_raceController->pauseRace()
 
-    // Example toggle:
-    this->ui->pauseButton->setEnabled(false);  // Disable pause button when paused
-    this->ui->startButton->setEnabled(true);   // Enable start button if you want to allow resuming
+    // Toggle button states for paused state
+    this->ui->pauseButton->setEnabled(false);  // Disable pause button
+    this->ui->startButton->setEnabled(true);   // Enable start button if resuming is allowed
 }
 
 void RacingGame::exitButtonClicked()
 {
     qDebug() << "[RacingGame] Exit button clicked, stopping race.";
-    this->m_raceController->stopRace();       // Ensure all threads are stopped
+    this->m_raceController->stopRace(); // Ensure all threads are stopped
 
     // Disable buttons upon exit to prevent further interaction
     this->ui->startButton->setEnabled(false);
     this->ui->pauseButton->setEnabled(false);
 
-    QApplication::quit();   // Close the application
+    QApplication::quit(); // Close the application
 }
-

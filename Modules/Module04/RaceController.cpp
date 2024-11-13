@@ -27,6 +27,7 @@ void RaceController::startRace()
     qDebug() << "[RaceController] Starting the race.";
     this->m_isRaceOngoing = true;
 
+    // Starts each CarThread if it is not already running
     for (int i = 0; i < this->m_carThreads.size(); ++i) {
         CarThread* carThread = this->m_carThreads[i];
         if (!carThread->isRunning()) {
@@ -39,6 +40,8 @@ void RaceController::startRace()
 void RaceController::stopRace()
 {
     qDebug() << "[RaceController] Stopping the race.";
+
+    // Stops each CarThread, ensuring it has time to exit cleanly
     for (int i = 0; i < this->m_carThreads.size(); ++i) {
         CarThread* carThread = this->m_carThreads[i];
         if (carThread->isRunning()) {
@@ -62,11 +65,12 @@ void RaceController::addCar(int carIndex, int startX, int initialY)
     CarThread* carThread = new CarThread(car, this->m_raceTrack);
     this->m_carThreads.append(carThread);
 
-    // Relay car's positionUpdated signal through RaceController
+    // Relays car position updates through RaceController for UI updates
     connect(car, &Car::positionUpdated, this, [=](int x, int y) {
         emit carPositionUpdated(x, y, carIndex);
     });
 
+    // Emits carFinished signal when a car completes the race
     connect(carThread, &CarThread::finishedRace, this, [=]() {
         qDebug() << "[RaceController] Car with index" << carIndex << "finished the race!";
         emit carFinished(carIndex);
@@ -74,4 +78,3 @@ void RaceController::addCar(int carIndex, int startX, int initialY)
 
     qDebug() << "[RaceController] Added car with index" << carIndex << "at initial position (" << startX << "," << initialY << ")";
 }
-

@@ -15,33 +15,34 @@ class RacingGame;
 }
 QT_END_NAMESPACE
 
+// RacingGame provides the main interface for the racing application, handling UI and race coordination.
 class RacingGame : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    RacingGame(QWidget *parent = nullptr);
+    RacingGame(QWidget *parent = nullptr); // Sets up UI and initializes components
     ~RacingGame();
 
 private slots:
-    void startButtonClicked();
-    void exitButtonClicked();
-    void pauseButtonClicked();
+    void startButtonClicked(); // Initiates the race
+    void exitButtonClicked();  // Stops the race and closes the application
+    void pauseButtonClicked(); // Pauses the race (to be implemented)
 
 private:
-    void initializeScene();
-    void connectSignals();
-    void setupCars();
+    void initializeScene(); // Configures the graphical scene for display
+    void connectSignals();  // Links UI buttons to actions
+    void setupCars();       // Sets up car objects in the race
 
 private:
-    Ui::RacingGame *ui;
-    RaceTrack m_raceTrack;
-    QGraphicsScene* m_scene;  // Scene for managing graphical items
-    int m_numCars = 3;        // Number of cars (can be changed as needed)
+    Ui::RacingGame *ui;                   // Main UI interface
+    RaceTrack m_raceTrack;                // Track information
+    QGraphicsScene* m_scene;              // Manages graphical items
+    int m_numCars = 3;                    // Configurable number of cars
 
-    RaceController *m_raceController;// Tracks race status
-    TrackView *m_trackView;
-    CarDisplayManager* m_carDisplayManager; // Manages car graphics
+    RaceController *m_raceController;     // Controls race progression
+    TrackView *m_trackView;               // Manages track visuals
+    CarDisplayManager* m_carDisplayManager; // Handles car graphics
 };
 
 #endif // RACINGGAME_H

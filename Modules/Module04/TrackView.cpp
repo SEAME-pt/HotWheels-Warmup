@@ -11,7 +11,7 @@ TrackView::TrackView(QGraphicsScene* scene, RaceTrack *raceTrack, int carCount, 
     , m_carCount(carCount)
 {
     qDebug() << "[TrackView] Initialized with track length:" << this->m_raceTrack->getSize()
-             << "and calculated track height:" << this->calculateHeight();
+    << "and calculated track height:" << this->calculateHeight();
 }
 
 void TrackView::initializeTrackView()
@@ -24,7 +24,7 @@ void TrackView::initializeTrackView()
 
 void TrackView::drawTrackBackground()
 {
-    int padding = 20; // Padding around the track for borders
+    int padding = 20; // Adds padding to give the track background a border
     int backgroundWidth = this->m_raceTrack->getSize() + 2 * padding;
     int backgroundHeight = this->calculateHeight() + 2 * padding;
     int backgroundX = this->m_raceTrack->getXStart() - padding;
@@ -33,6 +33,7 @@ void TrackView::drawTrackBackground()
     qDebug() << "[TrackView] Drawing track background at (" << backgroundX << "," << backgroundY
              << ") with width =" << backgroundWidth << "and height =" << backgroundHeight;
 
+    // Creates and adds a light gray rectangle for the track background
     QGraphicsRectItem* background = new QGraphicsRectItem(backgroundX, backgroundY, backgroundWidth, backgroundHeight);
     background->setBrush(QBrush(Qt::lightGray));
     background->setPen(Qt::NoPen);
@@ -44,14 +45,16 @@ void TrackView::drawStartLine()
     int startX = this->m_raceTrack->getXStart();
     qDebug() << "[TrackView] Drawing start line at x =" << startX;
 
+    // Adds a green line to mark the start of the track
     this->m_scene->addRect(startX, 5, 1, this->calculateHeight(), QPen(Qt::green), QBrush(Qt::green));
 }
 
 void TrackView::drawFinishLine()
 {
-     int finishX = this->m_raceTrack->getXStart() + this->m_raceTrack->getSize();
+    int finishX = this->m_raceTrack->getXStart() + this->m_raceTrack->getSize();
     qDebug() << "[TrackView] Drawing finish line at x =" << finishX;
 
+    // Adds a red line to mark the finish of the track
     this->m_scene->addRect(finishX, 5, 1, this->calculateHeight(), QPen(Qt::red), QBrush(Qt::red));
 }
 
