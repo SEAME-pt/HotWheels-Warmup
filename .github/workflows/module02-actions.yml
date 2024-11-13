@@ -2,11 +2,11 @@ name: Module 02 Tests
 
 on:
   push:
-    # paths:
-    #   - 'Module02/ex01/**'
+    paths:
+      - 'Module02/'
   pull_request:
-    # paths:
-    #   - 'Module02/ex01/**'
+    paths:
+      - 'Module02/'
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
