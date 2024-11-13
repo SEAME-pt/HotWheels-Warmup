@@ -6,7 +6,7 @@
 #include <QVector>
 #include "RaceTrack.h"
 #include "RaceController.h"
-#include "CarDisplayManager.h"
+#include "CarSetupManager.h"
 #include "TrackView.h"
 
 QT_BEGIN_NAMESPACE
@@ -15,34 +15,33 @@ class RacingGame;
 }
 QT_END_NAMESPACE
 
-// RacingGame provides the main interface for the racing application, handling UI and race coordination.
+// RacingGame provides the main interface for the racing application, handling UI components and high-level race coordination.
 class RacingGame : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    RacingGame(QWidget *parent = nullptr); // Sets up UI and initializes components
+    RacingGame(QWidget *parent = nullptr); // Sets up the UI and initializes core components
     ~RacingGame();
 
 private slots:
-    void startButtonClicked(); // Initiates the race
-    void exitButtonClicked();  // Stops the race and closes the application
-    void pauseButtonClicked(); // Pauses the race (to be implemented)
+    void startButtonClicked(); // Starts the race by triggering RaceController
+    void exitButtonClicked();  // Stops the race and exits the application
+    void pauseButtonClicked(); // Pauses the race (future implementation)
 
 private:
-    void initializeScene(); // Configures the graphical scene for display
-    void connectSignals();  // Links UI buttons to actions
-    void setupCars();       // Sets up car objects in the race
+    void initializeScene(); // Configures the graphical scene for track and car display
+    void connectSignals();  // Connects UI buttons to their respective actions
 
 private:
-    Ui::RacingGame *ui;                   // Main UI interface
-    RaceTrack m_raceTrack;                // Track information
-    QGraphicsScene* m_scene;              // Manages graphical items
-    int m_numCars = 3;                    // Configurable number of cars
+    Ui::RacingGame *ui;                    // Main UI interface
+    RaceTrack m_raceTrack;                 // Holds track configuration
+    QGraphicsScene* m_scene;               // Scene for managing graphics
+    int m_numCars = 3;                     // Number of cars in the race
 
-    RaceController *m_raceController;     // Controls race progression
-    TrackView *m_trackView;               // Manages track visuals
-    CarDisplayManager* m_carDisplayManager; // Handles car graphics
+    RaceController *m_raceController;      // Manages race progression and car movement
+    TrackView *m_trackView;                // Displays the visual elements of the track
+    CarSetupManager* m_carSetupManager;    // Handles car initialization and display setup
 };
 
 #endif // RACINGGAME_H

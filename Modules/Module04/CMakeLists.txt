@@ -35,6 +35,9 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         RaceController.cpp
         TrackView.h
         TrackView.cpp
+        CarSetupManager.h
+        CarSetupManager.cpp
+
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET Module04 APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
