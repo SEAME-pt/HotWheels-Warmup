@@ -16,9 +16,28 @@ RaceController::~RaceController()
         delete car;
     }
     for (CarThread* carThread : this->m_carThreads) {
-        carThread->quit();
-        carThread->wait();
-        delete carThread;
+        if (carThread->isRunning()) {
+            qDebug() << "[RaceController] Stopping thread.";
+            carThread->quit();
+            carThread->wait();
+        }
+        // delete carThread;
+    }
+    this->m_carThreads.clear();
+}
+
+void RaceController::onCarFinished(int carIndex)
+{
+    if (carIndex >= 0 && carIndex < this->m_carThreads.size()) {
+        CarThread* carThread = this->m_carThreads[carIndex];
+
+        if (carThread->isRunning()) {
+            carThread->stopThread(); // Stop the car's movement loop
+            carThread->quit();       // Request the thread to exit
+            carThread->wait();       // Wait for the thread to finish
+        }
+
+        qDebug() << "[RaceController] Stopped CarThread for car index:" << carIndex;
     }
 }
 
@@ -42,12 +61,12 @@ void RaceController::stopRace()
     qDebug() << "[RaceController] Stopping the race.";
 
     // Stops each CarThread, ensuring it has time to exit cleanly
-    for (int i = 0; i < this->m_carThreads.size(); ++i) {
-        CarThread* carThread = this->m_carThreads[i];
+    for (CarThread* carThread : this->m_carThreads) {
         if (carThread->isRunning()) {
-            qDebug() << "[RaceController] Stopping CarThread for car index:" << i;
-            carThread->quit();
-            carThread->wait();
+            qDebug() << "[RaceController] Stopping thread.";
+            carThread->stopThread(); // Set the stop flag
+            carThread->quit();       // Request thread to exit
+            carThread->wait();       // Wait until the thread exits
         }
     }
     this->m_isRaceOngoing = false;
@@ -73,7 +92,7 @@ void RaceController::addCar(int carIndex, int startX, int initialY)
     // Emits carFinished signal when a car completes the race
     connect(carThread, &CarThread::finishedRace, this, [=]() {
         qDebug() << "[RaceController] Car with index" << carIndex << "finished the race!";
-        emit carFinished(carIndex);
+        this->onCarFinished(carIndex);
     });
 
     qDebug() << "[RaceController] Added car with index" << carIndex << "at initial position (" << startX << "," << initialY << ")";

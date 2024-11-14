@@ -71,6 +71,8 @@ void RacingGame::pauseButtonClicked()
     // Placeholder for pausing race logic
     // Future implementation may involve m_raceController->pauseRace()
 
+    this->m_raceController->stopRace();
+
     // Toggle button states for paused state
     this->ui->pauseButton->setEnabled(false);  // Disable pause button
     this->ui->startButton->setEnabled(true);   // Enable start button if resuming is allowed

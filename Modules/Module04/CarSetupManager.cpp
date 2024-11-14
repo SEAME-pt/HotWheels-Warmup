@@ -24,10 +24,13 @@ void CarSetupManager::setupCars()
     this->m_carDisplayManager->initializeCars(this->m_numCars, startX, carDiameter, spacing);
 
     // Connect RaceController's position update signal to update car positions in the UI
-    connect(this->m_raceController, &RaceController::carPositionUpdated, this, [=](int x, int y, int carIndex) {
-        qDebug() << "[CarSetupManager] Updating car position in UI for car index" << carIndex << ": x =" << x << ", y =" << y;
-        this->m_carDisplayManager->updateCarPosition(x, y, carIndex);
-    });
+    connect(this->m_raceController,
+            &RaceController::carPositionUpdated,
+            this,
+            [=](int x, int y, int carIndex) {
+                // qDebug() << "[CarSetupManager] Updating car position in UI for car index" << carIndex << ": x =" << x << ", y =" << y;
+                this->m_carDisplayManager->updateCarPosition(x, y, carIndex);
+            });
 
     // Add cars to RaceController with their initial positions
     for (int i = 0; i < this->m_numCars; ++i) {

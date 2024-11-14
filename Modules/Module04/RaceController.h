@@ -23,8 +23,10 @@ public:
     // Adds a car to the race with specified initial position.
     void addCar(int carIndex, int startX, int initialY);
 
+public slots:
+    void onCarFinished(int carIndex);
+
 signals:
-    void carFinished(int carIndex);       // Emitted when a car completes the race
     void carPositionUpdated(int x, int y, int carIndex); // Emitted for UI position updates
 
 private:

@@ -1,0 +1,79 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-2231bfde0ec95120025c.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "Module04",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "Module04::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Module04-Debug-9e3fe48607bf620d5887.json",
+					"name" : "Module04",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Module04_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Module04_autogen-Debug-3d84e5a497cc406dcca7.json",
+					"name" : "Module04_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Module04_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Module04_autogen_timestamp_deps-Debug-3bb3f6ae4d7c3dd176b7.json",
+					"name" : "Module04_autogen_timestamp_deps",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/seame/Module04/build/Desktop-Debug",
+		"source" : "/home/seame/Module04"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 7
+	}
+}

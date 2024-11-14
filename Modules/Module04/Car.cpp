@@ -33,19 +33,19 @@ void Car::setPosition(int x, int y)
 
 int Car::getSpeed() const
 {
-    qDebug() << "[Car] getSpeed called. Current speed:" << m_speed;
+    // qDebug() << "[Car] getSpeed called. Current speed:" << m_speed;
     return m_speed;
 }
 
 int Car::getX() const
 {
-    qDebug() << "[Car] getX called. Current X:" << m_x;
+    // qDebug() << "[Car] getX called. Current X:" << m_x;
     return m_x;
 }
 
 int Car::getY() const
 {
-    qDebug() << "[Car] getY called. Current Y:" << m_y;
+    // qDebug() << "[Car] getY called. Current Y:" << m_y;
     return m_y;
 }
 
@@ -54,12 +54,12 @@ void Car::move()
     m_mutex.lock(); // Lock for thread-safe position update
 
     // Calculate the new position based on current speed and direction
-    int oldX = m_x;
-    int oldY = m_y;
+    // int oldX = m_x;
+    // int oldY = m_y;
     m_x += m_speed * std::cos(m_direction * M_PI / 180.0);
     m_y += m_speed * std::sin(m_direction * M_PI / 180.0);
 
-    qDebug() << "[Car] Moving car from (" << oldX << "," << oldY << ") to (" << m_x << "," << m_y << ") with speed =" << m_speed << "and direction =" << m_direction;
+    // qDebug() << "[Car] Moving car from (" << oldX << "," << oldY << ") to (" << m_x << "," << m_y << ") with speed =" << m_speed << "and direction =" << m_direction;
 
     emit positionUpdated(m_x, m_y); // Emit updated position
 
