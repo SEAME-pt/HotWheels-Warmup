@@ -1,9 +1,10 @@
 #include "Phonebook.h"
 #include <iostream>
+#include "Contact.h"
 
 Phonebook::Phonebook() {}
 
-void Phonebook::addContact(const std::string &name, const std::string &phoneNumber, const std::string &email)
+void Phonebook::addContact(const QString &name, const QString &phoneNumber, const QString &email)
 {
 	Contact newContact(name, phoneNumber, email);
 	contacts.push_back(newContact);
@@ -11,7 +12,7 @@ void Phonebook::addContact(const std::string &name, const std::string &phoneNumb
 
 void Phonebook::searchContacts()
 {
-	std::string phoneNumber;
+    QString phoneNumber;
 
 	int index = findContactIndexByPhoneNumber(phoneNumber);
 
@@ -27,7 +28,7 @@ void Phonebook::searchContacts()
 
 void Phonebook::removeContact()
 {
-	std::string phoneNumber;
+    QString phoneNumber;
 
 	int index = findContactIndexByPhoneNumber(phoneNumber);
 
@@ -42,7 +43,7 @@ void Phonebook::removeContact()
 	}
 }
 
-int Phonebook::findContactIndexByPhoneNumber(const std::string &phoneNumber)
+int Phonebook::findContactIndexByPhoneNumber(const QString &phoneNumber)
 {
 	for (int i = 0; i < contacts.size(); i++)
 	{
@@ -53,4 +54,9 @@ int Phonebook::findContactIndexByPhoneNumber(const std::string &phoneNumber)
 	}
 
 	return -1;
+}
+
+std::vector<Contact>* Phonebook::getContacts()
+{
+    return &this->contacts;
 }

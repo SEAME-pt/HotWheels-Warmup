@@ -2,6 +2,7 @@
 #define PHONEBOOK_H
 
 #include "./Contact.h"
+#include <qcontainerfwd.h>
 #include <vector>
 
 class Phonebook
@@ -9,14 +10,15 @@ class Phonebook
 private:
     std::vector<Contact> contacts;
 
-    void displayContactList();
-    int findContactIndexByPhoneNumber(const std::string &phoneNumber);
+    int findContactIndexByPhoneNumber(const QString &phoneNumber);
 
 public:
 	Phonebook();
-    void addContact(const std::string &name, const std::string &phoneNumber, const std::string &nickname);
+    void addContact(const QString &name, const QString &phoneNumber, const QString &nickname);
     void searchContacts();
     void removeContact();
+
+    std::vector<Contact>* getContacts();
 };
 
 #endif
