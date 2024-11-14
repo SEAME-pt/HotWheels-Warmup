@@ -19,6 +19,12 @@ qt_add_executable(Phonebook
     Phonebook.h phonebook.cpp
     Contact.h contact.cpp
     Images.qrc
+    DialogSearch.h dialogsearch.cpp dialogsearch.ui
+    utils.cpp
+    Utils.h
+
+
+
 )
 
 target_link_libraries(Phonebook
