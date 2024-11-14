@@ -1,4 +1,4 @@
-name: Module 03 Tests
+name: Module 03
 
 on:
   push:
@@ -7,23 +7,48 @@ on:
   pull_request:
     paths:
       - 'Modules/Module03/**'
+
 jobs:
-  build-and-test:
+  build:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        folder:
-          - 'Modules/Module03/ex00'
     steps:
     - uses: actions/checkout@v3
 
-    - name: Compile executable
-      run: |
-        cd ${{ matrix.folder }}
-        make
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v3
+      with:
+        version: '6.5.0'
+        host: 'linux'
+        target: 'desktop'
+        arch: 'gcc_64'
+        dir: '${{github.workspace}}/qt/'
+        modules: 'qtcharts qtwebengine qtwebchannel qtwebsockets'
 
-    - name: Run tests
+    - name: Create Build Directory
+      run: mkdir build
+
+    - name: Configure CMake
+      working-directory: ${{github.workspace}}/build
+      run: cmake ..
+
+    - name: Build
+      working-directory: ${{github.workspace}}/build
+      run: cmake --build . --config Release
+
+    - name: Run Tests
+      working-directory: ${{github.workspace}}/build
+      run: ctest --output-on-failure
+
+    - name: Package Application
+      working-directory: ${{github.workspace}}/build
       run: |
-        cd ${{ matrix.folder }}
-        make test
+        mkdir package
+        cp YourApp package/
+        # Add any additional files needed for distribution
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: qt-app
+        path: build/package/
