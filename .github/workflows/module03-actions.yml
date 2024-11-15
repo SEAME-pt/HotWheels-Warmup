@@ -41,6 +41,8 @@ jobs:
           libgl1-mesa-dev \
           libxkbcommon-x11-0 \
           libpulse-mainloop-glib0
+          x11-apps \
+          xvfb
 
     - name: Create build directory
       run: mkdir build
@@ -59,7 +61,7 @@ jobs:
     - name: Run the program
       working-directory: build
       run: |
-        ./Phonebook
+        xvfb-run -a ./Phonebook  # Run the Qt application in a virtual display
 
     # Optional: Run tests if you have them
     #- name: Test
