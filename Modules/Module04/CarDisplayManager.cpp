@@ -1,4 +1,5 @@
 #include "CarDisplayManager.h"
+#include "Utils.h"
 
 CarDisplayManager::CarDisplayManager(QGraphicsScene* scene)
     : m_scene(scene)
@@ -24,6 +25,23 @@ void CarDisplayManager::initializeCars(int numCars, int startX, int carDiameter,
     }
 }
 
+void CarDisplayManager::resetCars(int numCars, int startX, int carDiameter, int spacing)
+{
+    if (numCars != this->m_carItems.size()) {
+        qDebug() << "[CarDisplayManager] Mismatch in number of cars. Reset aborted.";
+        return;
+    }
+
+    for (int i = 0; i < numCars; ++i) {
+        int yPosition = spacing + i * (carDiameter + spacing);
+        QGraphicsEllipseItem *carItem = this->m_carItems[i];
+        // Resets the car position while preserving its size
+        carItem->setRect(startX, yPosition, carDiameter, carDiameter);
+    }
+
+    qDebug() << "[CarDisplayManager] Cars reset to initial positions.";
+}
+
 void CarDisplayManager::updateCarPosition(int x, int y, int carIndex)
 {
     if (carIndex >= 0 && carIndex < this->m_carItems.size()) {
@@ -36,7 +54,7 @@ void CarDisplayManager::updateCarPosition(int x, int y, int carIndex)
 void CarDisplayManager::clearCars()
 {
     for (QGraphicsEllipseItem* carItem : this->m_carItems) {
-        delete carItem; // Deletes each car item from the scene
+        Utils::safeDelete(carItem); // Deletes each car item from the scene
     }
     this->m_carItems.clear(); // Clears the list of car items
 }

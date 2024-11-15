@@ -15,6 +15,7 @@ public:
 
     // Initializes car display items in the scene with the specified properties.
     void initializeCars(int numCars, int startX, int carDiameter, int spacing);
+    void resetCars(int numCars, int startX, int carDiameter, int spacing);
 
     // Updates the graphical position of the car at carIndex.
     void updateCarPosition(int x, int y, int carIndex);

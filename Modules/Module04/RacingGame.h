@@ -27,7 +27,10 @@ public:
 private slots:
     void startButtonClicked(); // Starts the race by triggering RaceController
     void exitButtonClicked();  // Stops the race and exits the application
-    void pauseButtonClicked(); // Pauses the race (future implementation)
+    void pauseButtonClicked(); // Pauses the race
+    void resetButtonClicked();
+
+    void onRaceFinished();
 
 private:
     void initializeScene(); // Configures the graphical scene for track and car display
