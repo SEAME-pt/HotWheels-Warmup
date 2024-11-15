@@ -1,0 +1,79 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-6aee34aa0414981efd26.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "Phonebook",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "Phonebook::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Phonebook-Debug-cddd2a0cdb87de0b1cc6.json",
+					"name" : "Phonebook",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Phonebook_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Phonebook_autogen-Debug-9c0d36006ad06f59b8f5.json",
+					"name" : "Phonebook_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Phonebook_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Phonebook_autogen_timestamp_deps-Debug-7e5a18c7f9f30003e049.json",
+					"name" : "Phonebook_autogen_timestamp_deps",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/programming-pc/seame/warm-up/Modules/Module03/Phonebook/build/Desktop_Qt_6_8_0-Debug",
+		"source" : "/home/programming-pc/seame/warm-up/Modules/Module03/Phonebook"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 7
+	}
+}
