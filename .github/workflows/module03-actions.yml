@@ -45,16 +45,6 @@ jobs:
     - name: Create build directory
       run: mkdir build
 
-    - name: Find CMakeLists.txt on the GitHub Actions runner
-      run: |
-        echo "Searching for CMakeLists.txt..."
-        find . -name "CMakeLists.txt"
-
-    - name: List repository files
-      run: |
-        echo "Listing files in the repository..."
-        ls -R ${GITHUB_WORKSPACE}
-
     - name: Configure CMake
       working-directory: build
       run: |
