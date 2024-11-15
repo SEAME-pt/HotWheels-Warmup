@@ -54,6 +54,7 @@ void RacingGame::initializeScene()
     qDebug() << "[RacingGame] Setting up the QGraphicsScene.";
     this->m_scene = new QGraphicsScene(this);
     this->ui->racingTrackView->setScene(this->m_scene);
+    this->ui->racingTrackView->setBackgroundBrush(Qt::lightGray);
 }
 
 void RacingGame::connectSignals()
