@@ -45,10 +45,17 @@ jobs:
     - name: Create build directory
       run: mkdir build
 
+    - name: Verify CMakeLists.txt
+      run: |
+        if [ ! -f Modules/Module03/PhoneBook/CMakeLists.txt ]; then
+          echo "CMakeLists.txt not found in Modules/Module03/PhoneBook";
+          exit 1;
+        fi
+
     - name: Configure CMake
       working-directory: build
       run: |
-        cmake ../Modules/Module03 \
+        cmake ../Modules/Module03/PhoneBook \
           -DCMAKE_PREFIX_PATH=${{github.workspace}}/qt/Qt/6.5.3/gcc_64 \
           -DCMAKE_BUILD_TYPE=Release
 
