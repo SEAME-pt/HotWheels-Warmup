@@ -2,7 +2,7 @@ name: Module 03
 
 on:
   push:
-    #paths:
+    paths:
     #  - 'Modules/Module03/**'
   pull_request:
     #paths:
@@ -48,9 +48,9 @@ jobs:
     - name: Configure CMake
       working-directory: build
       run: |
-        cmake
-        -DCMAKE_PREFIX_PATH=${{github.workspace}}/qt/Qt/6.5.3/gcc_64 \
-        -DCMAKE_BUILD_TYPE=Release
+        cmake ../Modules/Module03 \
+          -DCMAKE_PREFIX_PATH=${{github.workspace}}/qt/Qt/6.5.3/gcc_64 \
+          -DCMAKE_BUILD_TYPE=Release
 
     - name: Build
       working-directory: build
