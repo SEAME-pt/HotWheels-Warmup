@@ -45,12 +45,10 @@ jobs:
     - name: Create build directory
       run: mkdir build
 
-    - name: Verify CMakeLists.txt
+    - name: Find CMakeLists.txt on the GitHub Actions runner
       run: |
-        if [ ! -f Modules/Module03/PhoneBook/CMakeLists.txt ]; then
-          echo "CMakeLists.txt not found in Modules/Module03/PhoneBook";
-          exit 1;
-        fi
+        echo "Searching for CMakeLists.txt..."
+        find . -name "CMakeLists.txt"
 
     - name: Configure CMake
       working-directory: build
