@@ -56,6 +56,50 @@ int Phonebook::findContactIndexByPhoneNumber(const QString &phoneNumber)
 	return -1;
 }
 
+bool Phonebook::importContacts(const QString &fileName) {
+    QFile file(fileName);
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        qWarning() << "Could not open file for reading:" << fileName;
+        return false;
+    }
+
+    QTextStream in(&file);
+    QString name, phoneNumber, email;
+    bool contactInProgress = false;
+
+    int i = 0;
+    // Read the file line by line and process contact info
+    while (!in.atEnd()) {
+        QString line = in.readLine().trimmed(); // Remove extra spaces
+
+        // Match each field with a regular expression
+        if (line.startsWith("Name:") && i == 0) {
+            name = line.mid(5).trimmed();  // Extract name after "Name: "
+            i++;
+        }
+        else if (line.startsWith("Phone Number:") && i == 1) {
+            phoneNumber = line.mid(14).trimmed();
+            i++;
+        }
+        else if (line.startsWith("Email:") && i == 2) {
+            email = line.mid(6).trimmed();
+            i++;
+        }
+        else {
+            i = 0;
+        }
+
+        if (i == 3) {
+            addContact(name, phoneNumber, email);
+            i = 0;
+        }
+
+    }
+    file.close();
+
+    return true;
+};
+
 std::vector<Contact>* Phonebook::getContacts()
 {
     return &this->contacts;

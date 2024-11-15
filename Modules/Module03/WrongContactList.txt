@@ -1,0 +1,11 @@
+Name: Tiago Pereira
+Email: tiago.pereira@seame.pt
+Phone Number: 74261412
+
+Name: Ricardo Melo
+Phone Number: 874621742
+Email: ricardo.melo@seame.pt
+
+Name: Felix
+Phone Number: 98421412
+Email: felix@seame.pt
