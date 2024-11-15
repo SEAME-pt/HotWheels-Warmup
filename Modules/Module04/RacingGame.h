@@ -27,7 +27,10 @@ public:
 private slots:
     void startButtonClicked(); // Starts the race by triggering RaceController
     void exitButtonClicked();  // Stops the race and exits the application
-    void pauseButtonClicked(); // Pauses the race (future implementation)
+    void pauseButtonClicked(); // Pauses the race
+    void resetButtonClicked();
+
+    void onRaceFinished();
 
 private:
     void initializeScene(); // Configures the graphical scene for track and car display
@@ -37,7 +40,7 @@ private:
     Ui::RacingGame *ui;                    // Main UI interface
     RaceTrack m_raceTrack;                 // Holds track configuration
     QGraphicsScene* m_scene;               // Scene for managing graphics
-    int m_numCars = 3;                     // Number of cars in the race
+    int m_numCars = 5;                     // Number of cars in the race
 
     RaceController *m_raceController;      // Manages race progression and car movement
     TrackView *m_trackView;                // Displays the visual elements of the track

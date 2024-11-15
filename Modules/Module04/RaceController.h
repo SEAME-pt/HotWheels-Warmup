@@ -22,19 +22,22 @@ public:
     void pauseRace();
 
     // Adds a car to the race with specified initial position.
-    void addCar(int carIndex, int startX, int initialY);
+    void addCar(int carIndex, int startX, int startY);
+    void resetCars(int startX, int spacing, int carDiameter);
 
 public slots:
     void onCarFinished(int carIndex);
 
 signals:
     void carPositionUpdated(int x, int y, int carIndex); // Emitted for UI position updates
+    void allCarsFinished();
 
 private:
     QVector<Car *> m_cars;             // Collection of car objects in the race
     QVector<CarThread *> m_carThreads; // Threads managing each car's movement
     RaceTrack *m_raceTrack;            // Reference to the race track
     bool m_isRaceOngoing = false;      // Tracks the current race state
+    QVector<bool> m_carFinishedStates; // Tracks whether each car has finished the race
 };
 
 #endif // RACECONTROLLER_H

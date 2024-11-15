@@ -41,12 +41,26 @@ void RaceController::onCarFinished(int carIndex)
 
         qDebug() << "[RaceController] Stopped CarThread for car index:" << carIndex;
     }
+
+    // Update the car's finished state
+    if (carIndex >= 0 && carIndex < this->m_carFinishedStates.size()) {
+        this->m_carFinishedStates[carIndex] = true;
+    }
+
+    // Check if all cars are finished
+    bool isRaceFinished = std::all_of(this->m_carFinishedStates.begin(),
+                                      this->m_carFinishedStates.end(),
+                                      [](bool finished) { return finished; });
+
+    if (isRaceFinished) {
+        qDebug() << "[RaceController] All cars have finished the race!";
+        emit allCarsFinished(); // Emit a signal if needed
+    }
 }
 
 void RaceController::startRace()
 {
     qDebug() << "[RaceController] Starting the race.";
-    auto isAlreadyStarted = this->m_isRaceOngoing == true;
     this->m_isRaceOngoing = true;
 
     // Starts each CarThread if it is not already running
@@ -55,9 +69,7 @@ void RaceController::startRace()
         if (!carThread->isRunning()) {
             qDebug() << "[RaceController] Starting CarThread for car index:" << i;
             carThread->start();
-            if (isAlreadyStarted) {
                 carThread->restartThread();
-            }
         }
     }
 }
@@ -95,16 +107,18 @@ void RaceController::stopRace()
     qDebug() << "[RaceController] Race stopped.";
 }
 
-void RaceController::addCar(int carIndex, int startX, int initialY)
+void RaceController::addCar(int carIndex, int startX, int startY)
 {
     Car *car = new Car();
-    car->setPosition(startX, initialY);
+    car->setPosition(startX, startY);
     car->setSpeed(10 + carIndex * 5);
     car->setDirection(0);
     this->m_cars.append(car);
 
     CarThread *carThread = new CarThread(car, this->m_raceTrack);
     this->m_carThreads.append(carThread);
+
+    this->m_carFinishedStates.append(false); // Mark the car as not finished
 
     // Relays car position updates through RaceController for UI updates
     connect(car, &Car::positionUpdated, this, [=](int x, int y) {
@@ -119,5 +133,17 @@ void RaceController::addCar(int carIndex, int startX, int initialY)
     });
 
     qDebug() << "[RaceController] Added car with index" << carIndex << "at initial position ("
-             << startX << "," << initialY << ")";
+             << startX << "," << startY << ")";
+}
+
+void RaceController::resetCars(int startX, int spacing, int carDiameter)
+{
+    qDebug() << "[RaceController] Reset cars positions.";
+    for (int i = 0; i < this->m_cars.size(); ++i) {
+        int initialY = spacing + i * (carDiameter + spacing);
+        Car *car = this->m_cars[i];
+        car->setPosition(startX, initialY);
+    }
+
+    this->m_carFinishedStates.fill(false, this->m_cars.size());
 }

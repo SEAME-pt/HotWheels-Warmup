@@ -39,7 +39,6 @@ void CarThread::run()
 
     // Main loop for car movement
     while (m_shouldRun) {
-        this->m_car->move();
         // qDebug() << "[CarThread] Car position updated to (" << m_car->getX() << "," << m_car->getY()
         //          << ")";
 
@@ -52,6 +51,8 @@ void CarThread::run()
             this->m_shouldRun = false;
             break;
         }
+
+        this->m_car->move();
 
         this->msleep(50); // Controls update rate (20 frames per second)
     }

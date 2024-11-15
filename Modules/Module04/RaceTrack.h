@@ -6,6 +6,7 @@ class RaceTrack {
 public:
     // Constructs a RaceTrack with a specified start position and length.
     RaceTrack(int xStart, int size);
+    ~RaceTrack();
 
     int getXStart() const; // Returns the starting x-coordinate of the track.
     int getSize() const;   // Returns the length of the track.

@@ -17,6 +17,7 @@ public:
     CarSetupManager(QGraphicsScene* scene, RaceTrack* raceTrack, RaceController* raceController, int numCars, QObject* parent = nullptr);
 
     void setupCars(); // Sets up cars with display items and connects position updates
+    void resetCarsPositions();
 
 private:
     QGraphicsScene* m_scene;                // Scene where car items are displayed

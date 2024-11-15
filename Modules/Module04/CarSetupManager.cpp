@@ -14,10 +14,13 @@ CarSetupManager::CarSetupManager(QGraphicsScene* scene, RaceTrack* raceTrack, Ra
 
 void CarSetupManager::setupCars()
 {
+    if (!this->m_raceTrack) {
+        qDebug() << "[CarSetupManager] Race track is lost";
+    }
     qDebug() << "[CarSetupManager] Setting up cars and CarDisplayManager.";
 
-    int startX = this->m_raceTrack->getXStart();
-    int carDiameter = 20;
+    int carDiameter = 32;
+    int startX = this->m_raceTrack->getXStart() - carDiameter * 2;
     int spacing = 10;
 
     // Initialize car graphics in the CarDisplayManager
@@ -37,4 +40,20 @@ void CarSetupManager::setupCars()
         int initialY = spacing + i * (carDiameter + spacing);
         this->m_raceController->addCar(i, startX, initialY);
     }
+}
+
+void CarSetupManager::resetCarsPositions()
+{
+    qDebug() << "[CarSetupManager] Restarting cars and CarDisplayManager at initial positions.";
+
+    if (!this->m_raceTrack) {
+        qDebug() << "[CarSetupManager] Race track is lost";
+    }
+    int carDiameter = 32;
+    int startX = this->m_raceTrack->getXStart() - carDiameter * 2;
+    int spacing = 10;
+
+    // Initialize car graphics in the CarDisplayManager
+    this->m_carDisplayManager->resetCars(this->m_numCars, startX, carDiameter, spacing);
+    this->m_raceController->resetCars(startX, spacing, carDiameter);
 }
