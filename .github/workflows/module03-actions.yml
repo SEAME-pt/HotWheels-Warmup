@@ -56,6 +56,10 @@ jobs:
       working-directory: build
       run: cmake --build . --config Release
 
+    - name: Run the program
+        working-directory: build
+        run: |
+          ./Phonebook
 
     # Optional: Run tests if you have them
     #- name: Test
