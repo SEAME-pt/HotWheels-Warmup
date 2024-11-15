@@ -16,6 +16,7 @@ public:
     ~CarThread();
 
     void stopThread(); // Safely stops the thread's execution loop
+    void restartThread();
 
 signals:
     void finishedRace(); // Emitted when the car reaches the end of the RaceTrack

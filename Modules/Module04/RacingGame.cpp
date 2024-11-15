@@ -1,8 +1,9 @@
 #include "RacingGame.h"
-#include "./ui_RacingGame.h"
 #include <QDebug>
 #include <QGraphicsEllipseItem>
 #include <QGraphicsRectItem>
+#include "./ui_RacingGame.h"
+#include "Utils.h"
 
 RacingGame::RacingGame(QWidget *parent)
     : QMainWindow(parent)
@@ -14,6 +15,8 @@ RacingGame::RacingGame(QWidget *parent)
 
     this->initializeScene();
     this->connectSignals();
+
+    this->ui->pauseButton->setEnabled(false);
 
     // Set up TrackView for managing visual elements of the race track
     this->m_trackView = new TrackView(this->m_scene, &this->m_raceTrack, this->m_numCars);
@@ -32,10 +35,8 @@ RacingGame::RacingGame(QWidget *parent)
 RacingGame::~RacingGame()
 {
     qDebug() << "[RacingGame] Cleaning up resources in the destructor.";
-    delete this->m_raceController;
-    delete this->m_carSetupManager;
-    delete this->m_trackView;
-    delete this->ui;
+    Utils::safeDelete(m_trackView);
+    Utils::safeDelete(ui);
 }
 
 void RacingGame::initializeScene()
@@ -71,7 +72,7 @@ void RacingGame::pauseButtonClicked()
     // Placeholder for pausing race logic
     // Future implementation may involve m_raceController->pauseRace()
 
-    this->m_raceController->stopRace();
+    this->m_raceController->pauseRace();
 
     // Toggle button states for paused state
     this->ui->pauseButton->setEnabled(false);  // Disable pause button
