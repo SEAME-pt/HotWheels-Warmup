@@ -48,7 +48,8 @@ jobs:
     - name: Configure CMake
       working-directory: build
       run: |
-        cmake ../Modules/Module03/PhoneBook \
+        cd Modules/Module03/PhoneBook
+        cmake
           -DCMAKE_PREFIX_PATH=${{github.workspace}}/qt/Qt/6.5.3/gcc_64 \
           -DCMAKE_BUILD_TYPE=Release
 
