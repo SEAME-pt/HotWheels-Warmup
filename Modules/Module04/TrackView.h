@@ -27,7 +27,7 @@ public:
     void drawFinishLine();
 
     // Calculates the track height based on the number of cars and their spacing.
-    int calculateHeight(int carDiameter = 20, int spacing = 10) const;
+    int calculateHeight(int carDiameter = 32, int spacing = 10) const;
 
 private:
     QGraphicsScene* m_scene;    // Scene where track elements are drawn

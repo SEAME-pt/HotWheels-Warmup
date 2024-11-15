@@ -106,6 +106,7 @@ void RacingGame::resetButtonClicked()
 
     this->m_carSetupManager->resetCarsPositions();
     this->ui->startButton->setEnabled(true);
+    this->ui->resetButton->setEnabled(false);
     this->ui->startButton->setText("Start");
 }
 

@@ -24,7 +24,7 @@ void TrackView::initializeTrackView()
 
 void TrackView::drawTrackBackground()
 {
-    int padding = 20; // Adds padding to give the track background a border
+    int padding = 64; // Adds padding to give the track background a border
     int backgroundWidth = this->m_raceTrack->getSize() + 2 * padding;
     int backgroundHeight = this->calculateHeight() + 2 * padding;
     int backgroundX = this->m_raceTrack->getXStart() - padding;
