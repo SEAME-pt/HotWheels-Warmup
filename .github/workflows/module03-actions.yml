@@ -48,7 +48,9 @@ jobs:
     - name: Configure CMake
       working-directory: build
       run: |
-        cat /home/runner/work/HotWheels-Warmup/HotWheels-Warmup
+        ls > a
+        cat a
+      #cat /home/runner/work/HotWheels-Warmup/HotWheels-Warmup
       #cd Modules/Module03/PhoneBook
       #cmake
         #-DCMAKE_PREFIX_PATH=${{github.workspace}}/qt/Qt/6.5.3/gcc_64 \
