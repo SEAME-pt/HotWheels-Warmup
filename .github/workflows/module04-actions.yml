@@ -7,23 +7,57 @@ on:
   pull_request:
     paths:
       - 'Modules/Module04/**'
+
 jobs:
-  build-and-test:
+  build:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        folder:
-          - 'Modules/Module04/ex00'
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
-    - name: Compile executable
-      run: |
-        cd ${{ matrix.folder }}
-        make
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
 
-    - name: Run tests
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v3
+      with:
+        version: '6.5.3'
+        host: 'linux'
+        target: 'desktop'
+        arch: 'gcc_64'
+        dir: '${{github.workspace}}/qt'
+        setup-python: 'false'
+        cache: 'true'
+
+    - name: Install dependencies
       run: |
-        cd ${{ matrix.folder }}
-        make test
+        sudo apt-get update
+        sudo apt-get install -y \
+          build-essential \
+          ninja-build \
+          cmake \
+          libgl1-mesa-dev \
+          libxkbcommon-x11-0 \
+          libpulse-mainloop-glib0
+
+    - name: Create build directory
+      run: mkdir build
+
+    - name: Configure CMake
+      working-directory: build
+      run: |
+        cmake /home/runner/work/HotWheels-Warmup/HotWheels-Warmup/Modules/Module04/Phonebook \
+          -DCMAKE_PREFIX_PATH=${{github.workspace}}/qt/Qt/6.5.3/gcc_64 \
+          -DCMAKE_BUILD_TYPE=Release
+
+    - name: Build
+      working-directory: build
+      run: cmake --build . --config Release
+
+    # Optional: Run tests if you have them
+    #- name: Test
+    #  working-directory: build
+    #  run: ctest --output-on-failure
+

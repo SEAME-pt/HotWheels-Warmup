@@ -13,38 +13,50 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
 
     - name: Install Qt
       uses: jurplel/install-qt-action@v3
       with:
-        version: '6.5.0'
+        version: '6.5.3'
         host: 'linux'
         target: 'desktop'
         arch: 'gcc_64'
-        dir: '${{github.workspace}}/qt/'
-        modules: 'qtcharts qtwebengine qtwebchannel qtwebsockets'
+        dir: '${{github.workspace}}/qt'
+        setup-python: 'false'
+        cache: 'true'
 
-    - name: Create Build Directory
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y \
+          build-essential \
+          ninja-build \
+          cmake \
+          libgl1-mesa-dev \
+          libxkbcommon-x11-0 \
+          libpulse-mainloop-glib0
+
+    - name: Create build directory
       run: mkdir build
 
     - name: Configure CMake
-      working-directory: ${{github.workspace}}/build
-      run: cmake ..
+      working-directory: build
+      run: |
+        cmake /home/runner/work/HotWheels-Warmup/HotWheels-Warmup/Modules/Module03/Phonebook \
+          -DCMAKE_PREFIX_PATH=${{github.workspace}}/qt/Qt/6.5.3/gcc_64 \
+          -DCMAKE_BUILD_TYPE=Release
 
     - name: Build
-      working-directory: ${{github.workspace}}/build
-      run: cmake --build . --config Releasthi
+      working-directory: build
+      run: cmake --build . --config Release
 
-    - name: Package Application
-      working-directory: ${{github.workspace}}/build
-      run: |
-        mkdir package
-        cp YourApp package/
-        # Add any additional files needed for distribution
-
-    - name: Upload Artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: qt-app
-        path: build/package/
+    # Optional: Run tests if you have them
+    #- name: Test
+    #  working-directory: build
+    #  run: ctest --output-on-failure

@@ -1,8 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>contact-book_1.png</file>
-        <file>name_icon.png</file>
-        <file>email_icon.png</file>
-        <file>number_icon.png</file>
-    </qresource>
-</RCC>
