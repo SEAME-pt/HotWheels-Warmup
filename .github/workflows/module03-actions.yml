@@ -2,11 +2,11 @@ name: Module 03
 
 on:
   push:
-    paths:
-      - 'Modules/Module03/**'
+    #paths:
+    #  - 'Modules/Module03/**'
   pull_request:
-    paths:
-      - 'Modules/Module03/**'
+    #paths:
+    #  - 'Modules/Module03/**'
 
 jobs:
   build:
