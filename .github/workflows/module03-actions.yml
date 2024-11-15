@@ -50,6 +50,11 @@ jobs:
         echo "Searching for CMakeLists.txt..."
         find . -name "CMakeLists.txt"
 
+    - name: List repository files
+      run: |
+        echo "Listing files in the repository..."
+        ls -R ${GITHUB_WORKSPACE}
+
     - name: Configure CMake
       working-directory: build
       run: |
