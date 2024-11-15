@@ -15,43 +15,23 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.11'
-
-    - name: Install Qt
-      uses: jurplel/install-qt-action@v3
-      with:
-        version: '6.5.3'    # Changed from 6.8.0 to 6.5.3
-        host: 'linux'
-        target: 'desktop'
-        arch: 'gcc_64'
-        dir: '${{github.workspace}}/qt'
-        modules: 'qtbase qtcharts'  # Changed modules list
-        setup-python: 'false'
-        cache: 'true'
-
-    - name: Install dependencies
+    - name: Install Qt and dependencies
       run: |
         sudo apt-get update
         sudo apt-get install -y \
           build-essential \
-          ninja-build \
           cmake \
-          libgl1-mesa-dev \
-          libxkbcommon-x11-0 \
-          libpulse-mainloop-glib0
+          ninja-build \
+          qt6-base-dev \
+          qt6-charts-dev \
+          libgl1-mesa-dev
 
     - name: Create build directory
       run: mkdir build
 
     - name: Configure CMake
       working-directory: build
-      run: |
-        cmake .. \
-          -DCMAKE_PREFIX_PATH=${{github.workspace}}/qt/Qt/6.5.3/gcc_64 \
-          -DCMAKE_BUILD_TYPE=Release
+      run: cmake .. -DCMAKE_BUILD_TYPE=Release
 
     - name: Build
       working-directory: build
