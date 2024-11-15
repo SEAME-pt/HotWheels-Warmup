@@ -1,4 +1,4 @@
-# Install script for directory: /home/seame/Desktop/seame/SEAME-WarmUp-HotWheels/Modules/Module04
+# Install script for directory: /home/seame/Desktop/HotWheels-Warmup/Modules/Module04
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -49,7 +49,7 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/Module04"
          RPATH "")
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "/home/seame/Desktop/seame/SEAME-WarmUp-HotWheels/Modules/Module04/build/Desktop_Qt_6_8_0-Debug/Module04")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "/home/seame/Desktop/HotWheels-Warmup/Modules/Module04/build/Desktop_Qt_6_8_0-Debug/Module04")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/Module04" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/Module04")
     file(RPATH_CHANGE
@@ -70,5 +70,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/seame/Desktop/seame/SEAME-WarmUp-HotWheels/Modules/Module04/build/Desktop_Qt_6_8_0-Debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/seame/Desktop/HotWheels-Warmup/Modules/Module04/build/Desktop_Qt_6_8_0-Debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

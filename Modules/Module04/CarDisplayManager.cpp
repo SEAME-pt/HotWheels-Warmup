@@ -7,6 +7,7 @@ CarDisplayManager::CarDisplayManager(QGraphicsScene* scene)
 
 CarDisplayManager::~CarDisplayManager()
 {
+    qDebug() << "[CarDisplayManager] Destructor called.";
     this->clearCars(); // Ensures all car items are removed from the scene
 }
 

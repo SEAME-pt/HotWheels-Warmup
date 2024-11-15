@@ -27,6 +27,11 @@ void CarThread::stopThread()
     this->m_shouldRun = false; // Sets flag to stop the main loop in run()
 }
 
+void CarThread::restartThread()
+{
+    this->m_shouldRun = true; // Sets flag to restart the main loop in run()
+}
+
 void CarThread::run()
 {
     qDebug() << "[CarThread] Thread started for car with initial position (" << this->m_car->getX()
