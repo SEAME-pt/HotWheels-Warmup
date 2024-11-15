@@ -1,6 +1,15 @@
 #include "DialogSearch.h"
 #include "ui_dialogsearch.h"
 #include <QMessageBox>
+#include <QApplication>
+#include <QPushButton>
+#include <QFileDialog>
+#include <QTextStream>
+#include <QMessageBox>
+#include <QFile>
+#include <QDebug>
+#include <QStringList>
+
 
 DialogSearch::DialogSearch(Phonebook &phonebook, QWidget *parent) : QDialog(parent), ui(new Ui::DialogSearch), phonebookRef(phonebook)
 {
@@ -66,4 +75,22 @@ void DialogSearch::on_btn_removeContact_clicked()
             }
         }
     }
+}
+
+void DialogSearch::on_btn_importContactList_clicked()
+{
+    QString fileName = QFileDialog::getOpenFileName(this, "Open Contact List", "", "Text Files (*.txt);;CSV Files (*.csv)");
+
+    if (!fileName.isEmpty()) {
+        if (this->phonebookRef.importContacts(fileName)) {
+            QMessageBox::information(this, "Success", "Contacts imported successfully!");
+        } else {
+            QMessageBox::warning(this, "Error", "Failed to import contacts.");
+        }
+    }
+}
+
+void DialogSearch::on_btn_Reload_clicked()
+{
+    displayContactList(phonebookRef);
 }
