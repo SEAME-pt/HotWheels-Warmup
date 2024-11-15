@@ -18,12 +18,20 @@ jobs:
     - name: Install Qt and dependencies
       run: |
         sudo apt-get update
+        # Add Qt repository
+        sudo apt-get install -y software-properties-common
+        sudo add-apt-repository ppa:ubuntu-sdk-team/ppa
+        sudo apt-get update
+
+        # Install Qt and build dependencies
         sudo apt-get install -y \
           build-essential \
           cmake \
           ninja-build \
           qt6-base-dev \
-          qt6-charts-dev \
+          libqt6charts6-dev \
+          libqt6core6 \
+          libqt6widgets6 \
           libgl1-mesa-dev
 
     - name: Create build directory
